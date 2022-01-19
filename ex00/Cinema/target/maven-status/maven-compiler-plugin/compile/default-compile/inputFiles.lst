@@ -1,0 +1,10 @@
+/Users/iserzhan/IdeaProjects/Cinema/ex00/Cinema/src/main/java/edu/school21/cinema/services/HallService.java
+/Users/iserzhan/IdeaProjects/Cinema/ex00/Cinema/src/main/java/edu/school21/cinema/config/ApplicationConfig.java
+/Users/iserzhan/IdeaProjects/Cinema/ex00/Cinema/src/main/java/edu/school21/cinema/repositories/HallDAO.java
+/Users/iserzhan/IdeaProjects/Cinema/ex00/Cinema/src/main/java/edu/school21/cinema/repositories/HallDAOImpl.java
+/Users/iserzhan/IdeaProjects/Cinema/ex00/Cinema/src/main/java/edu/school21/cinema/config/MyWebAppInitializer.java
+/Users/iserzhan/IdeaProjects/Cinema/ex00/Cinema/src/main/java/edu/school21/cinema/models/Hall.java
+/Users/iserzhan/IdeaProjects/Cinema/ex00/Cinema/src/main/java/edu/school21/cinema/models/Movie.java
+/Users/iserzhan/IdeaProjects/Cinema/ex00/Cinema/src/main/java/edu/school21/cinema/servlets/HallController.java
+/Users/iserzhan/IdeaProjects/Cinema/ex00/Cinema/src/main/java/edu/school21/cinema/services/HallServiceImpl.java
+/Users/iserzhan/IdeaProjects/Cinema/ex00/Cinema/src/main/java/edu/school21/cinema/config/DispatcherConfig.java

@@ -1,0 +1,1 @@
+INSERT INTO halls(serial_num, amount_of_seats) VALUES (default, 50);

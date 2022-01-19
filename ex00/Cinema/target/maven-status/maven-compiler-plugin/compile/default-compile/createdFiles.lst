@@ -1,0 +1,10 @@
+edu/school21/cinema/config/ApplicationConfig.class
+edu/school21/cinema/services/HallServiceImpl.class
+edu/school21/cinema/config/DispatcherConfig.class
+edu/school21/cinema/repositories/HallDAO.class
+edu/school21/cinema/servlets/HallController.class
+edu/school21/cinema/config/MyWebAppInitializer.class
+edu/school21/cinema/models/Hall.class
+edu/school21/cinema/models/Movie.class
+edu/school21/cinema/services/HallService.class
+edu/school21/cinema/repositories/HallDAOImpl.class
