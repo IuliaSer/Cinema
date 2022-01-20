@@ -20,6 +20,6 @@ public class HallController {
         System.out.println("I am here!");
         List<Hall> halls = hallService.showListOfHalls(model);
         model.addAttribute("halls", halls);
-        return "WEB-INF/jsp/Halls.jsp";
+        return "Halls";
     }
 }

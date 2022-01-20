@@ -19,9 +19,7 @@ public class Hall {
         this.amountOfSeats = amountOfSeats;
     }
 
-    public Hall() {
-
-    }
+    public Hall() {}
 
     public int getSerialNum() {
         return serialNum;

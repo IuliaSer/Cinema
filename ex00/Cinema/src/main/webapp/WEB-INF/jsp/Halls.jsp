@@ -1,11 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: iserzhan
-  Date: 1/5/22
-  Time: 8:12 PM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -19,10 +13,10 @@
             <td>Amount of seats</td>
         </tr>
 
-        <c:forEach var="halls" items="$(halls)">
+        <c:forEach var="hall" items="$(halls)">
         <tr>
-            <td> ${halls.serialNum} </td>
-            <td> ${halls.amountOfSeats} </td>
+            <td> ${hall.serialNum} </td>
+<%--            <td> ${hall.amountOfSeats} </td>--%>
         </tr>
         </c:forEach>
     </table>
