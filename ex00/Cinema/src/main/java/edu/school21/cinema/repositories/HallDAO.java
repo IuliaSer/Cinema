@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface HallDAO {
     public List<Hall> findAll();
+    public void saveHall(Hall hall);
+
 }

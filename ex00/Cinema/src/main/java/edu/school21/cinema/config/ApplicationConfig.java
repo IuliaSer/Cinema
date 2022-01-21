@@ -18,9 +18,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 @Configuration
-//@EnableJpaRepositories
-//@EnableTransactionManagement
-@PropertySource("classpath:../application.properties")
+@EnableJpaRepositories
+@EnableTransactionManagement
+//@PropertySource("classpath:../application.properties")
 public class ApplicationConfig {
 
     @Bean()
@@ -33,12 +33,12 @@ public class ApplicationConfig {
         return entityManagerFactory().createEntityManager();
     }
 
-//    @Bean
-//    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-//        JpaTransactionManager transactionManager = new JpaTransactionManager();
-//        transactionManager.setEntityManagerFactory(entityManagerFactory);
-//        return transactionManager;
-//    }
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory);
+        return transactionManager;
+    }
     @Bean
     public HallService hallService() {
         return new HallServiceImpl();

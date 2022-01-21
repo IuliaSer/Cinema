@@ -21,4 +21,9 @@ public class HallServiceImpl implements HallService{
         List<Hall> halls = hallRepository.findAll();
         return halls;
     }
+
+    @Override
+    public void saveHall(Hall hall) {
+        hallRepository.saveHall(hall);
+    }
 }

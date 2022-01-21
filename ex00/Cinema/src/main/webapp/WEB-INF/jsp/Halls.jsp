@@ -6,22 +6,26 @@
     <title>Title</title>
 </head>
 <body>
+<h2> Movie halls</h2>
 <div id="table1">
-    <table style="width:80%">
+    <table>
         <tr>
             <td>Serial number</td>
             <td>Amount of seats</td>
         </tr>
 
-        <c:forEach var="hall" items="$(halls)">
+        <c:forEach items="${halls}" var="hall">
         <tr>
             <td> ${hall.serialNum} </td>
-<%--            <td> ${hall.amountOfSeats} </td>--%>
+            <td> ${hall.amountOfSeats} </td>
         </tr>
         </c:forEach>
     </table>
 </div>
+<br>
 
+<input type="button" value="create new hall"
+    onclick="window.location.href = 'halls/createHall';" />
 <br> <br>
 </body>
 </html>

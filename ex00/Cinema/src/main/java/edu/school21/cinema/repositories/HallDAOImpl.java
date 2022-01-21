@@ -22,8 +22,8 @@ public class HallDAOImpl implements HallDAO {
         return entityManager.createQuery("from Hall", Hall.class).getResultList();
     }
 
-    @Transactional
-    public void save(Hall entity) {
+    @Override
+    public void saveHall(Hall entity) {
         entityManager.persist(entity);
     }
 }
