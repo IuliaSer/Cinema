@@ -1,6 +1,5 @@
 package edu.school21.cinema.servlets;
 
-import edu.school21.cinema.models.Hall;
 import edu.school21.cinema.models.Movie;
 import edu.school21.cinema.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;

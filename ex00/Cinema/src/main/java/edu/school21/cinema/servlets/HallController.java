@@ -5,7 +5,9 @@ import edu.school21.cinema.services.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -16,7 +18,7 @@ public class HallController {
     @Autowired
     HallService hallService;
 
-    @RequestMapping("/admin/panel/halls")
+    @GetMapping("/admin/panel/halls")
     public String showHalls(Model model) {
         List<Hall> halls = hallService.showListOfHalls(model);
         model.addAttribute("halls", halls);
@@ -30,9 +32,10 @@ public class HallController {
         return "CreateHall";
     }
 
-    @RequestMapping("/admin/panel/halls/saveHall")
+    @PostMapping("/admin/panel/halls")
     public String saveHall(@ModelAttribute ("hall") Hall hall) {
+        System.out.println("I am here!");
         hallService.saveHall(hall);
-        return "redirect: /admin/panel/halls";
+        return "redirect:/admin/panel/halls";
     }
 }

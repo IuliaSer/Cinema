@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<form:form action = "/saveHall" modelAttribute="hall">
+<form:form method="post" action="/admin/panel/halls" modelAttribute="hall">
     Serial num: <input type = "text" name = "Serial num" />
     <br><br>
     Amount of seats: <input type = "text" name = "Amount of seats" />
