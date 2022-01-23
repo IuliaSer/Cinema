@@ -27,5 +27,6 @@
 <input type="button" value="create new hall"
     onclick="window.location.href = 'halls/createHall';" />
 <br> <br>
+
 </body>
 </html>

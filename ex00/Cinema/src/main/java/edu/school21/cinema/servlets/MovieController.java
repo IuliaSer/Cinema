@@ -5,7 +5,9 @@ import edu.school21.cinema.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -15,7 +17,7 @@ public class MovieController {
     @Autowired
     MovieService movieService;
 
-    @RequestMapping("/admin/panel/films")
+    @GetMapping("/admin/panel/films")
     public String showHalls(Model model) {
         List<Movie> movies = movieService.getAll(model);
         model.addAttribute("movies", movies);
@@ -29,9 +31,9 @@ public class MovieController {
         return "AddFilm";
     }
 
-    @RequestMapping("/admin/panel/films/saveFilm")
+    @PostMapping("/admin/panel/films/saveFilm")
     public String saveMovie(@ModelAttribute("movie") Movie movie) {
         movieService.saveMovie(movie);
-        return "redirect: /admin/panel/films";
+        return "redirect:/admin/panel/films";
     }
 }

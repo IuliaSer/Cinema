@@ -11,17 +11,19 @@
 <head>
     <title>Title</title>
 </head>
+
 <body>
-<form:form action = "/admin/panel/films/saveFilm" modelAttribute="movie">
-    Title: <input type = "text" name = "Title" />
+<form:form action = "http://localhost:8080/Cinema_war/admin/panel/films/saveFilm" modelAttribute="movie">
+    Title <form:input path="title"/>
     <br><br>
-    Year: <input type = "text" name = "Year" />
+    Year <form:input path="year"/>
     <br><br>
-    Age restriction: <input type = "text" name = "Age restriction" />
+    Age restriction <form:input path="ageRestriction"/>
     <br><br>
-    Description: <input type = "text" name = "Description" />
+    Description <form:input path="description"/>
     <br><br>
     <input type = "submit" value = "Submit" />
 </form:form>
 </body>
+
 </html>

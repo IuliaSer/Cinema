@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -25,17 +24,19 @@ public class HallController {
         return "Halls";
     }
 
-    @RequestMapping("/admin/panel/halls/createHall")
-    public String create(Model model) {
-        Hall hall = new Hall();
-        model.addAttribute("hall", hall);
-        return "CreateHall";
-    }
-
     @PostMapping("/admin/panel/halls")
     public String saveHall(@ModelAttribute ("hall") Hall hall) {
         System.out.println("I am here!");
         hallService.saveHall(hall);
         return "redirect:/admin/panel/halls";
     }
+
+    @GetMapping("/admin/panel/halls/createHall")
+    public String create(Model model) {
+        Hall hall = new Hall();
+        model.addAttribute("hall", hall);
+        return "CreateHall";
+    }
+
+
 }
