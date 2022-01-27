@@ -6,7 +6,8 @@ import org.springframework.ui.Model;
 import java.util.List;
 
 public interface HallService {
-    public List showListOfHalls(Model model);
+    public List getAllHalls(Model model);
     public void saveHall(Hall hall);
+    public Hall getHallById(int id);
 
 }

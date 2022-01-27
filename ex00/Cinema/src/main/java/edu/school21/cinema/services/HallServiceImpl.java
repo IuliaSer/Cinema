@@ -17,8 +17,8 @@ public class HallServiceImpl implements HallService{
     HallDAO hallRepository;
 
     @Override
-    public List showListOfHalls(Model model) {
-        List<Hall> halls = hallRepository.findAll();
+    public List getAllHalls(Model model) {
+        List<Hall> halls = hallRepository.getAllHalls();
         return halls;
     }
 
@@ -26,4 +26,10 @@ public class HallServiceImpl implements HallService{
     public void saveHall(Hall hall) {
         hallRepository.saveHall(hall);
     }
+
+    @Override
+    public Hall getHallById(int id) {
+        return hallRepository.getHallById(id);
+    }
+
 }

@@ -1,7 +1,8 @@
 package edu.school21.cinema.models;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
 @Entity
 @Table(name = "movies")
 public class Movie {

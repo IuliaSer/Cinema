@@ -8,4 +8,5 @@ import java.util.List;
 public interface MovieService {
     public List<Movie> getAll(Model model);
     public void saveMovie(Movie model);
+    public Movie getMovieById(int movieId);
 }

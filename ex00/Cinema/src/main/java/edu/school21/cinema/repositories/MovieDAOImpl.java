@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -25,5 +26,12 @@ public class MovieDAOImpl implements MovieDAO{
     @Override
     public void saveMovie(Movie movie) {
         entityManager.persist(movie);
+    }
+
+    @Override
+    public Movie getMovieById(int movieId) {
+        Query query = entityManager.createQuery("from Movie where id = " + movieId);
+        List<Movie> list = query.getResultList();
+        return list.get(0);
     }
 }

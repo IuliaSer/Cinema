@@ -18,15 +18,14 @@ public class HallController {
     HallService hallService;
 
     @GetMapping("/admin/panel/halls")
-    public String showHalls(Model model) {
-        List<Hall> halls = hallService.showListOfHalls(model);
+    public String getAllHalls(Model model) {
+        List<Hall> halls = hallService.getAllHalls(model);
         model.addAttribute("halls", halls);
         return "Halls";
     }
 
     @PostMapping("/admin/panel/halls")
     public String saveHall(@ModelAttribute ("hall") Hall hall) {
-        System.out.println("I am here!");
         hallService.saveHall(hall);
         return "redirect:/admin/panel/halls";
     }

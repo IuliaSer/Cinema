@@ -22,4 +22,10 @@ public class MovieServiceImpl implements MovieService{
     public void saveMovie(Movie movie) {
         movieDAO.saveMovie(movie);
     }
+
+    @Override
+    public Movie getMovieById(int movieId) {
+        return movieDAO.getMovieById(movieId);
+    }
+
 }

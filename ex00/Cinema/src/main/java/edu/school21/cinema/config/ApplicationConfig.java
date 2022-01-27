@@ -2,9 +2,13 @@ package edu.school21.cinema.config;
 
 import edu.school21.cinema.repositories.HallDAO;
 import edu.school21.cinema.repositories.HallDAOImpl;
+import edu.school21.cinema.repositories.SessionDAO;
+import edu.school21.cinema.repositories.SessionDAOimpl;
 import edu.school21.cinema.services.HallService;
 import edu.school21.cinema.services.HallServiceImpl;
 
+import edu.school21.cinema.services.SessionService;
+import edu.school21.cinema.services.SessionServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -48,4 +52,5 @@ public class ApplicationConfig {
     public HallDAO hallRepository() {
         return new HallDAOImpl();
     }
+
 }
