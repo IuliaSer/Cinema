@@ -24,6 +24,14 @@
     <br><br>
     <input type = "submit" value = "Submit" />
 </form:form>
+
+<div id="imageForm">
+    <br>
+    <form:form action="http://localhost:8080/Cinema_war/admin/panel/films/savePoster" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <input type="submit" value="Upload" />
+    </form:form>
+</div>
 </body>
 
 </html>

@@ -39,7 +39,7 @@
         <input type="text" id="ticketPrice" name="price" required>
 
         <label style="background-color: darkgray" for="time">Time</label>
-        <input type="text" id="time" name="time" required>
+        <input type="datetime-local" id="time" name="time" required>
         <input type = "submit" value = "Submit" />
     </form:form>
 </body>

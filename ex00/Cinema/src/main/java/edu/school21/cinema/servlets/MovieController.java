@@ -5,11 +5,13 @@ import edu.school21.cinema.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+import java.io.*;
 import java.util.List;
 
 @Controller
@@ -34,6 +36,24 @@ public class MovieController {
     @PostMapping("/admin/panel/films/saveFilm")
     public String saveMovie(@ModelAttribute("movie") Movie movie) {
         movieService.saveMovie(movie);
+        return "redirect:/admin/panel/films";
+    }
+
+    @RequestMapping(value="/admin/panel/films/savePoster", method=RequestMethod.POST)
+    public String savePoster(@RequestParam MultipartFile file, HttpSession session) throws IOException {
+        System.out.println("Save poster");
+        ServletContext context = session.getServletContext();
+        String path = context.getRealPath();
+        String filename = file.getOriginalFilename();
+
+        System.out.println(path + " " + filename);
+
+        byte[] bytes = file.getBytes();
+        BufferedOutputStream stream =new BufferedOutputStream(new FileOutputStream(
+                new File(path + File.separator + filename)));
+        stream.write(bytes);
+        stream.flush();
+        stream.close();
         return "redirect:/admin/panel/films";
     }
 }

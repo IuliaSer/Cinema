@@ -1,6 +1,7 @@
 package edu.school21.cinema.models;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -19,12 +20,12 @@ public class Session {
     @JoinColumn(name="hallId")
     private Hall hall;
 
-    private String time;
+    private Date time;
     private int price;
 
     public Session() {}
 
-    public Session(Movie movie, Hall hall, String time, int price) {
+    public Session(Movie movie, Hall hall, Date time, int price) {
         this.movie = movie;
         this.hall = hall;
         this.time = time;
@@ -55,11 +56,11 @@ public class Session {
         this.hall = hall;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 

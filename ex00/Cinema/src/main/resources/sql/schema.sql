@@ -21,6 +21,6 @@ CREATE TABLE sessions(
                        id SERIAL PRIMARY KEY,
                        movieId Int REFERENCES movies(id),
                        hallId Int REFERENCES halls(serialNum),
-                       time varchar(30),
+                       time timestamp without time zone,
                        price varchar(30)
 );
