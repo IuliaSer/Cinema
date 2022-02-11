@@ -17,6 +17,11 @@ public class HallController {
     @Autowired
     HallService hallService;
 
+    @GetMapping("/")
+    public String welcomePage() {
+        return "index";
+    }
+
     @GetMapping("/admin/panel/halls")
     public String getAllHalls(Model model) {
         List<Hall> halls = hallService.getAllHalls(model);
@@ -36,6 +41,4 @@ public class HallController {
         model.addAttribute("hall", hall);
         return "CreateHall";
     }
-
-
 }

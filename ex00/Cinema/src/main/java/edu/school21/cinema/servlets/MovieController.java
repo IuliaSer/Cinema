@@ -2,22 +2,31 @@ package edu.school21.cinema.servlets;
 
 import edu.school21.cinema.models.Movie;
 import edu.school21.cinema.services.MovieService;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
+import javax.servlet.annotation.MultipartConfig;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
+@MultipartConfig
 @Controller
 public class MovieController {
     @Autowired
     MovieService movieService;
+
+    private final String uploadPath;
+
+    public MovieController(String uploadPath) {
+        this.uploadPath = uploadPath;
+    }
 
     @GetMapping("/admin/panel/films")
     public String showHalls(Model model) {
@@ -30,30 +39,19 @@ public class MovieController {
     public String addMovie(Model model) {
         Movie movie = new Movie();
         model.addAttribute("movie", movie);
+
         return "AddFilm";
     }
 
     @PostMapping("/admin/panel/films/saveFilm")
-    public String saveMovie(@ModelAttribute("movie") Movie movie) {
+    public String saveMovie(@ModelAttribute("movie") Movie movie, @RequestParam("image") MultipartFile file) throws IOException {
+        Files.createDirectories(Paths.get(uploadPath + "/" + "images"));
+        System.out.println(uploadPath + "/");
+        String uuidFile = UUID.nameUUIDFromBytes(file.getBytes()).toString();
+        String resultFileName = uuidFile + "." + FilenameUtils.getExtension(file.getOriginalFilename());
+        file.transferTo(new File(uploadPath + "/" + "images" + "/" + resultFileName));
+        movie.setImageUrl(resultFileName);
         movieService.saveMovie(movie);
-        return "redirect:/admin/panel/films";
-    }
-
-    @RequestMapping(value="/admin/panel/films/savePoster", method=RequestMethod.POST)
-    public String savePoster(@RequestParam MultipartFile file, HttpSession session) throws IOException {
-        System.out.println("Save poster");
-        ServletContext context = session.getServletContext();
-        String path = context.getRealPath();
-        String filename = file.getOriginalFilename();
-
-        System.out.println(path + " " + filename);
-
-        byte[] bytes = file.getBytes();
-        BufferedOutputStream stream =new BufferedOutputStream(new FileOutputStream(
-                new File(path + File.separator + filename)));
-        stream.write(bytes);
-        stream.flush();
-        stream.close();
         return "redirect:/admin/panel/films";
     }
 }

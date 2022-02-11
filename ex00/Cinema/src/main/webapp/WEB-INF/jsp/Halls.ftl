@@ -1,6 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Title</title>
@@ -14,12 +12,13 @@
             <td>Amount of seats</td>
         </tr>
 
-        <c:forEach items="${halls}" var="hall">
-        <tr>
+        <#list halls as hall>
+            <tr>
             <td> ${hall.serialNum} </td>
             <td> ${hall.amountOfSeats} </td>
         </tr>
-        </c:forEach>
+            </#list>
+
     </table>
 </div>
 <br>

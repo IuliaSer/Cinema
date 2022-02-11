@@ -1,8 +1,9 @@
 package edu.school21.cinema.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+
 @Entity
 @Table(name = "movies")
 public class Movie {
@@ -15,12 +16,14 @@ public class Movie {
     private int year;
     private int ageRestriction;
     private String description;
+    public String imageUrl;
 
-    public Movie(String title, int year, int ageRestriction, String description) {
+    public Movie(String title, int year, int ageRestriction, String description, String imageUrl) {
         this.title = title;
         this.year = year;
         this.ageRestriction = ageRestriction;
         this.description = description;
+        this.imageUrl = imageUrl;
     }
 
     public Movie() {}
@@ -63,5 +66,13 @@ public class Movie {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

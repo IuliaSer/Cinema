@@ -12,7 +12,8 @@ CREATE TABLE movies(
                       title varchar(30),
                       year INT,
                       ageRestriction INT,
-                      description text
+                      description text,
+                      poster text
 );
 
 DROP TABLE IF EXISTS sessions CASCADE;
