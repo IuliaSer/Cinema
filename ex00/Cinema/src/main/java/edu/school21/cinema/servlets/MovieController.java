@@ -44,14 +44,18 @@ public class MovieController {
     }
 
     @PostMapping("/admin/panel/films/saveFilm")
-    public String saveMovie(@ModelAttribute("movie") Movie movie, @RequestParam("image") MultipartFile file) throws IOException {
-        Files.createDirectories(Paths.get(uploadPath + "/" + "images"));
-        System.out.println(uploadPath + "/");
-        String uuidFile = UUID.nameUUIDFromBytes(file.getBytes()).toString();
-        String resultFileName = uuidFile + "." + FilenameUtils.getExtension(file.getOriginalFilename());
-        file.transferTo(new File(uploadPath + "/" + "images" + "/" + resultFileName));
-        movie.setImageUrl(resultFileName);
-        movieService.saveMovie(movie);
+    public String saveMovie(@ModelAttribute("movie") Movie movie, @RequestParam("image") MultipartFile file) {
+        try {
+            Files.createDirectories(Paths.get(uploadPath));
+            String uuidFile = UUID.nameUUIDFromBytes(file.getBytes()).toString();
+            String resultFileName = uuidFile + "." + FilenameUtils.getExtension(file.getOriginalFilename());
+            file.transferTo(new File(uploadPath + "/" + resultFileName));
+            movie.setImageUrl(uuidFile);
+            movieService.saveMovie(movie);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
         return "redirect:/admin/panel/films";
     }
 }

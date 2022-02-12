@@ -2,16 +2,16 @@ DROP TABLE IF EXISTS halls CASCADE;
 
 CREATE TABLE halls(
                       serialNum SERIAL PRIMARY KEY,
-                      amountOfSeats INT
+                      amountOfSeats INT not null
 );
 
 DROP TABLE IF EXISTS movies CASCADE;
 
 CREATE TABLE movies(
                       id SERIAL PRIMARY KEY,
-                      title varchar(30),
-                      year INT,
-                      ageRestriction INT,
+                      title varchar(30) not null,
+                      year INT not null,
+                      ageRestriction INT not null ,
                       description text,
                       poster text
 );
@@ -23,5 +23,5 @@ CREATE TABLE sessions(
                        movieId Int REFERENCES movies(id),
                        hallId Int REFERENCES halls(serialNum),
                        time timestamp without time zone,
-                       price varchar(30)
+                       price varchar(30) not null
 );

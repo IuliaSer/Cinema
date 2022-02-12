@@ -7,13 +7,13 @@
 <body>
 
     <form method="post" action="http://localhost:8080/Cinema_war/admin/panel/films/saveFilm" modelAttribute="movie" enctype="multipart/form-data">
-        Title <input name="title"/>
+        Title <input type="text" name="title"/>
         <br><br>
-        Year <input name="year"/>
+        Year <input type="text" name="year"/>
         <br><br>
-        Age restriction <input name="ageRestriction"/>
+        Age restriction <input type="text" name="ageRestriction"/>
         <br><br>
-        Description <input name="description"/>
+        Description <input type="text" name="description"/>
         <br><br>
         <input type="file" name="image" accept="image/*"/>
         <input type="submit" value="Submit" />

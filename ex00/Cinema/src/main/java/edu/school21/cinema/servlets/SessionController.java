@@ -54,13 +54,18 @@ public class SessionController {
 
     @PostMapping("/admin/panel/sessions")
     public String saveSession(@ModelAttribute("hallId") int hallId,
-        @ModelAttribute("movieId") int movieId, @ModelAttribute("price") int price, @ModelAttribute("time") String date) throws ParseException {
-        Movie movie = movieService.getMovieById(movieId);
-        Hall hall = hallService.getHallById(hallId);
-        String newDate = date.replace('T', ' ');
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        Session session = new Session(movie, hall, formatter.parse(newDate), price);
-        sessionService.saveSession(session);
+        @ModelAttribute("movieId") int movieId, @ModelAttribute("price") int price, @ModelAttribute("time") String date) {
+        try {
+            Movie movie = movieService.getMovieById(movieId);
+            Hall hall = hallService.getHallById(hallId);
+            String newDate = date.replace('T', ' ');
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+            Session session = new Session(movie, hall, formatter.parse(newDate), price);
+            sessionService.saveSession(session);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         return "redirect:/admin/panel/sessions";
     }
 }
