@@ -1,7 +1,7 @@
 package edu.school21.cinema.config;
 
-import edu.school21.cinema.repositories.HallDAO;
-import edu.school21.cinema.repositories.HallDAOImpl;
+import edu.school21.cinema.repositories.HallRepository;
+import edu.school21.cinema.repositories.HallRepositoryImpl;
 import edu.school21.cinema.services.HallService;
 import edu.school21.cinema.services.HallServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,13 +48,12 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public HallDAO hallRepository() {
-        return new HallDAOImpl();
+    public HallRepository hallRepository() {
+        return new HallRepositoryImpl();
     }
 
     @Bean
     public String uploadPath() {
         return path;
     }
-
 }

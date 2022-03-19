@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 
 import java.util.List;
 
-public interface MovieDAO {
+public interface MovieRepository {
     public List<Movie> getAll(Model model);
     public void saveMovie(Movie movie);
     public Movie getMovieById(int movieId);

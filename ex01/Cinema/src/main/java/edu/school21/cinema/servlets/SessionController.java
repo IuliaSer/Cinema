@@ -3,6 +3,7 @@ package edu.school21.cinema.servlets;
 import edu.school21.cinema.models.Hall;
 import edu.school21.cinema.models.Movie;
 import edu.school21.cinema.models.Session;
+import edu.school21.cinema.models.dto.SessionDto;
 import edu.school21.cinema.services.HallService;
 import edu.school21.cinema.services.MovieService;
 import edu.school21.cinema.services.SessionService;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -64,9 +66,12 @@ public class SessionController {
 
     @GetMapping(value = "/sessions/search", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<Session> searchSessions(@RequestParam("movieTitle") String movieTitle) {
+    public List<SessionDto> searchSessions(@RequestParam("movieTitle") String movieTitle) {
         List<Session> sessions = sessionService.getAllSessionsByMovieTitle(movieTitle);
-        return sessions;
+        List<SessionDto> sessionDaos = new ArrayList<>();
+        for (Session session : sessions)
+            sessionDaos.add(new SessionDto(session));
+        return sessionDaos;
     }
 
     @GetMapping(value = "/sessions/{id}")

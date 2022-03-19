@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class MovieDAOImpl implements MovieDAO{
+public class MovieRepositoryImpl implements MovieRepository {
 
     @PersistenceContext(type = PersistenceContextType.TRANSACTION)
     private EntityManager entityManager;

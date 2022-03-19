@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class HallDAOImpl implements HallDAO {
+public class HallRepositoryImpl implements HallRepository {
 
     @PersistenceContext(type = PersistenceContextType.TRANSACTION)
     private EntityManager entityManager;

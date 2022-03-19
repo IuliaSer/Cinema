@@ -1,6 +1,5 @@
 package edu.school21.cinema.repositories;
 
-import edu.school21.cinema.models.Movie;
 import edu.school21.cinema.models.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +11,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class SessionDAOimpl implements SessionDAO {
+public class SessionRepositoryImpl implements SessionRepository {
     @PersistenceContext(type = PersistenceContextType.TRANSACTION)
     private EntityManager entityManager;
 

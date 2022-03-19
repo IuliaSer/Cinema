@@ -21,6 +21,7 @@ import java.util.UUID;
 @MultipartConfig
 @Controller
 public class MovieController {
+
     @Autowired
     MovieService movieService;
 

@@ -14,34 +14,36 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"edu.school21.cinema"}) // Scans the following packages for classes with @Controller annotations
-    public class DispatcherConfig implements WebMvcConfigurer {
-        @Override
-        public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-            configurer.enable();
-        }
+@ComponentScan(basePackages = {"edu.school21.cinema"})
+// Scans the following packages for classes with @Controller annotations
+public class DispatcherConfig implements WebMvcConfigurer {
 
-        @Bean
-        public FreeMarkerConfigurer freeMarkerConfigurer(){
-            FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer(); //?
-            freeMarkerConfigurer.setTemplateLoaderPath("/WEB-INF/jsp/");
-
-            return freeMarkerConfigurer;
-        }
-
-        @Bean
-        public ViewResolver getViewResolver() {
-            FreeMarkerViewResolver viewResolver = new FreeMarkerViewResolver();
-
-            viewResolver.setPrefix("");
-            viewResolver.setSuffix(".ftl");
-            return viewResolver;
-        }
-
-        @Bean(name = "multipartResolver")
-        public CommonsMultipartResolver multipartResolver() {
-            CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-            multipartResolver.setMaxUploadSize(10000000);
-            return multipartResolver;
-        }
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
     }
+
+    @Bean
+    public FreeMarkerConfigurer freeMarkerConfigurer() {
+        FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer(); //?
+        freeMarkerConfigurer.setTemplateLoaderPath("/WEB-INF/jsp/");
+
+        return freeMarkerConfigurer;
+    }
+
+    @Bean
+    public ViewResolver getViewResolver() {
+        FreeMarkerViewResolver viewResolver = new FreeMarkerViewResolver();
+
+        viewResolver.setPrefix("");
+        viewResolver.setSuffix(".ftl");
+        return viewResolver;
+    }
+
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(10000000);
+        return multipartResolver;
+    }
+}
