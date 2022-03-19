@@ -69,8 +69,9 @@ public class SessionController {
     public List<SessionDto> searchSessions(@RequestParam("movieTitle") String movieTitle) {
         List<Session> sessions = sessionService.getAllSessionsByMovieTitle(movieTitle);
         List<SessionDto> sessionDaos = new ArrayList<>();
-        for (Session session : sessions)
+        for (Session session : sessions) {
             sessionDaos.add(new SessionDto(session));
+        }
         return sessionDaos;
     }
 

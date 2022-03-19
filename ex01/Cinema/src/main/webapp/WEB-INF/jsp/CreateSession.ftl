@@ -16,12 +16,10 @@
 
         <select name="hallId" id="Select hall">
             <option value="">--Please choose a hall--</option>
-<#--            <c:forEach items="${halls}" var="hall">-->
             <#list halls as hall>
                 <option value="${hall.serialNum}">
                         ${hall.amountOfSeats} <option/>
             </#list>
-<#--            </c:forEach>-->
         </select>
 
         <label style="background-color: darkgray" for="ticketPrice">Ticket price</label>
