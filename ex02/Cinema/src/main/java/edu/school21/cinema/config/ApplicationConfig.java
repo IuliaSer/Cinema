@@ -20,6 +20,7 @@ import javax.servlet.annotation.MultipartConfig;
 @Configuration
 @EnableTransactionManagement
 @MultipartConfig
+//@ComponentScan("edu.school21.cinema")
 @PropertySource("classpath:../application.properties")
 public class ApplicationConfig {
 
@@ -42,6 +43,7 @@ public class ApplicationConfig {
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
     }
+
     @Bean
     public HallService hallService() {
         return new HallServiceImpl();

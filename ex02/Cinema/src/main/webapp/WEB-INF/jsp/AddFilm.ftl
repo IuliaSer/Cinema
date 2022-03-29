@@ -6,7 +6,7 @@
 
 <body>
 
-    <form method="post" action="http://localhost:8080/Cinema_war/admin/panel/films/saveFilm" modelAttribute="movie" enctype="multipart/form-data">
+    <form method="post" action="http://localhost:8080/admin/panel/films/saveFilm" modelAttribute="movie" enctype="multipart/form-data">
         Title <input type="text" name="title"/>
         <br><br>
         Year <input type="text" name="year"/>
