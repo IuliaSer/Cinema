@@ -5,3 +5,5 @@ Run command: /bin/catalina.sh run in tomcat folder
 
 
 mvn clean install org.codehaus.cargo:cargo-maven2-plugin:run
+
+don't forget to add USERNAME_DIR env when start app
