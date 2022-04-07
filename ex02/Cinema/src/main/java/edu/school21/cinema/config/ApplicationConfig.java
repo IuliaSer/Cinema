@@ -20,7 +20,6 @@ import javax.servlet.annotation.MultipartConfig;
 @Configuration
 @EnableTransactionManagement
 @MultipartConfig
-//@ComponentScan("edu.school21.cinema")
 @PropertySource("classpath:../application.properties")
 public class ApplicationConfig {
 

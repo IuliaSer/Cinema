@@ -2,7 +2,7 @@ package edu.school21.cinema.servlets;
 
 import edu.school21.cinema.models.Hall;
 import edu.school21.cinema.services.HallService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class HallController {
 
-    @Autowired
-    HallService hallService;
+    private final HallService hallService;
 
     @GetMapping("/")
     public String welcomePage() {

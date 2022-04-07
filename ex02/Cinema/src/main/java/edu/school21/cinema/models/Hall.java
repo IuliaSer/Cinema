@@ -1,11 +1,19 @@
 package edu.school21.cinema.models;
 
-
 import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "halls")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Hall {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="serialNum")
@@ -13,27 +21,4 @@ public class Hall {
 
     @Column(name="amountOfSeats")
     private int amountOfSeats;
-
-    public Hall(int serialNum, int amountOfSeats) {
-        this.serialNum = serialNum;
-        this.amountOfSeats = amountOfSeats;
-    }
-
-    public Hall() {}
-
-    public int getSerialNum() {
-        return serialNum;
-    }
-
-    public void setSerialNum(int serialNum) {
-        this.serialNum = serialNum;
-    }
-
-    public int getAmountOfSeats() {
-        return amountOfSeats;
-    }
-
-    public void setAmountOfSeats(int amountOfSeats) {
-        this.amountOfSeats = amountOfSeats;
-    }
 }
