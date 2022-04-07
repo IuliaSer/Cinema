@@ -1,35 +1,35 @@
-package edu.school21.cinema.services;
+package edu.school21.cinema.services.impl;
 
 import edu.school21.cinema.models.Session;
 import edu.school21.cinema.repositories.SessionRepository;
+import edu.school21.cinema.services.SessionService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class SessionServiceImpl implements SessionService{
+public class SessionServiceImpl implements SessionService {
 
     @Autowired
-    SessionRepository sessionDAO;
+    SessionRepository sessionRepository;
 
     @Override
     public void saveSession(Session session) {
-        sessionDAO.saveSession(session);
+        sessionRepository.saveSession(session);
     }
 
     @Override
     public List<Session> getAll() {
-        return sessionDAO.getAll();
+        return sessionRepository.getAll();
     }
 
     @Override
     public List<Session> getAllSessionsByMovieTitle(String movieTitle) {
-        return sessionDAO.getAllSessionsByMovieTitle(movieTitle);
+        return sessionRepository.getAllSessionsByMovieTitle(movieTitle);
     }
 
     @Override
     public Session getSessionBySessionId(int id) {
-        return sessionDAO.getSessionBySessionId(id);
+        return sessionRepository.getSessionBySessionId(id);
     }
 }

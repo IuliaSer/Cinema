@@ -1,15 +1,14 @@
-package edu.school21.cinema.repositories;
+package edu.school21.cinema.repositories.impl;
 
 import edu.school21.cinema.models.Hall;
+import edu.school21.cinema.repositories.HallRepository;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Repository
 @Transactional

@@ -1,37 +1,36 @@
-package edu.school21.cinema.services;
+package edu.school21.cinema.services.impl;
 
 import edu.school21.cinema.models.Movie;
 import edu.school21.cinema.repositories.MovieRepository;
+import edu.school21.cinema.services.MovieService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import java.util.List;
-
 @Service
-public class MovieServiceImpl implements MovieService{
+public class MovieServiceImpl implements MovieService {
+
     @Autowired
-    MovieRepository movieDAO;
+    MovieRepository movieRepository;
 
     @Override
     public List<Movie> getAll(Model model) {
-        return movieDAO.getAll(model);
+        return movieRepository.getAll(model);
     }
 
     @Override
     public void saveMovie(Movie movie) {
-        movieDAO.saveMovie(movie);
+        movieRepository.saveMovie(movie);
     }
 
     @Override
     public Movie getMovieById(int movieId) {
-        return movieDAO.getMovieById(movieId);
+        return movieRepository.getMovieById(movieId);
     }
 
     @Override
     public int getMovieIdByTitle(String title) {
-        return movieDAO.getMovieIdByTitle(title);
+        return movieRepository.getMovieIdByTitle(title);
     }
-
-
 }

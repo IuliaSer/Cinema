@@ -1,13 +1,14 @@
-package edu.school21.cinema.repositories;
+package edu.school21.cinema.repositories.impl;
 
 import edu.school21.cinema.models.Session;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import edu.school21.cinema.repositories.SessionRepository;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
-import java.util.List;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional

@@ -1,17 +1,17 @@
-package edu.school21.cinema.services;
+package edu.school21.cinema.services.impl;
 
 import edu.school21.cinema.models.Hall;
 import edu.school21.cinema.repositories.HallRepository;
+import edu.school21.cinema.services.HallService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
-import java.util.List;
-
 @Service
 @Transactional
-public class HallServiceImpl implements HallService{
+public class HallServiceImpl implements HallService {
 
     @Autowired
     HallRepository hallRepository;

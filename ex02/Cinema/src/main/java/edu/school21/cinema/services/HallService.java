@@ -1,9 +1,8 @@
 package edu.school21.cinema.services;
 
 import edu.school21.cinema.models.Hall;
-import org.springframework.ui.Model;
-
 import java.util.List;
+import org.springframework.ui.Model;
 
 public interface HallService {
     public List getAllHalls(Model model);
