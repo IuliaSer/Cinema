@@ -25,3 +25,19 @@ CREATE TABLE sessions(
                        time timestamp without time zone,
                        price Int not null
 );
+
+DROP TABLE IF EXISTS users CASCADE;
+
+CREATE TABLE users(
+                         id SERIAL PRIMARY KEY,
+                         login varchar(20)
+);
+
+DROP TABLE IF EXISTS messages CASCADE;
+
+CREATE TABLE messages(
+                         id SERIAL PRIMARY KEY,
+                         movieId Int REFERENCES movies(id),
+                         userId Int REFERENCES users(id),
+                         message text
+);

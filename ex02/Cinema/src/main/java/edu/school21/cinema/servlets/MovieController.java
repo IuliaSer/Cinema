@@ -81,14 +81,4 @@ public class MovieController {
         return "redirect:/admin/panel/films";
     }
 
-    @GetMapping("/films/{film-id}/chat")
-    public String showMessages() {
-
-    }
-
-    @MessageMapping("/films/film-id/chat/")
-    @SendTo("")
-    public void messageSend(Message message) {
-
-    }
 }

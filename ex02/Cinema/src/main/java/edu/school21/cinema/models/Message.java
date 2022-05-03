@@ -1,16 +1,33 @@
 package edu.school21.cinema.models;
 
-import javax.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Message {
-    private int user_id;
 
-    private int message_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    private int movie_id;
+    @Column(name = "message")
+    private String message;
 
-    private String content;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
 
 }
