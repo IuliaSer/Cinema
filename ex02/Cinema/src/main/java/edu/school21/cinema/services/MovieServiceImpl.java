@@ -10,27 +10,31 @@ import java.util.List;
 
 @Service
 public class MovieServiceImpl implements MovieService{
+    private MovieRepository movieRepository;
+
     @Autowired
-    MovieRepository movieDAO;
+    public MovieServiceImpl(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
+    }
 
     @Override
     public List<Movie> getAll(Model model) {
-        return movieDAO.getAll(model);
+        return movieRepository.getAll(model);
     }
 
     @Override
     public void saveMovie(Movie movie) {
-        movieDAO.saveMovie(movie);
+        movieRepository.saveMovie(movie);
     }
 
     @Override
     public Movie getMovieById(int movieId) {
-        return movieDAO.getMovieById(movieId);
+        return movieRepository.getMovieById(movieId);
     }
 
     @Override
     public int getMovieIdByTitle(String title) {
-        return movieDAO.getMovieIdByTitle(title);
+        return movieRepository.getMovieIdByTitle(title);
     }
 
 

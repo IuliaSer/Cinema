@@ -2,69 +2,44 @@
 <head>
     <style>
         <#setting classic_compatible=true>
-        <#include "css/chat.css">
+<#--        <#include "css/chat.css">-->
     </style>
     <title>Chat</title>
     <meta charset="UTF-8">
 </head>
+
 <body>
 <div id="username-page">
     <div class="username-page-container">
         <h1 class="title">Type your username</h1>
         <form id="usernameForm" name="usernameForm">
-            <div class="form-group">
                 <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
-            </div>
-            <div class="form-group">
+                <b> </b>
                 <button type="submit" class="accent username-submit">Start Chatting</button>
-            </div>
         </form>
     </div>
 </div>
 
 <div id="chat-page" class="hidden">
     <div class="chat-container">
-        <div class="chat-header">
-            <h2>${film.title}</h2>
-        </div>
-        <div class="connecting">
-            Connecting...
-        </div>
+        <h2>${movie.title}</h2>
+<#--        <div class="connecting">-->
+<#--            Connecting...-->
+<#--        </div>-->
         <ul id="messageArea">
-            <#list history as historyMessage>
+            <#list messages as message>
                 <li class="chat-message">
-                    <span>${historyMessage.user.login}</span>
-                    <p>${historyMessage.message}</p>
+                    <span>${message.user.login}</span>
+                    <p>${message.message}</p>
                 </li>
             </#list>
         </ul>
         <form id="messageForm" name="messageForm">
-            <div class="form-group">
-                <div class="input-group clearfix">
-                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
-                    <button type="submit" class="primary">Send</button>
-                </div>
-            </div>
+                <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
+                <button type="submit" class="primary">Send</button>
         </form>
     </div>
-    <div class="user-info">
-        <div id="authInfo" class="auth">
-            <h3>Users authentications</h3>
-        </div>
-        <div class="avatar">
-            <div id="userAvatars">
-                <h3>User's avatars</h3>
-            </div>
-            <form id="avatarForm" enctype="multipart/form-data" method="POST" action="/images">
-                <p>
-                    <input type="file" name="avatar" id="avatar" multiple accept="image/*">
-                    <input type="hidden" name="filmId" id="formFilmId">
-                    <input type="hidden" name="userId" id="formUserId">
-                    <button id="uploadButton">Upload</button>
-                </p>
-            </form>
-        </div>
-    </div>
+
 </div>
 
 
@@ -80,22 +55,17 @@
     let messageInput = document.querySelector('#message');
     let messageArea = document.querySelector('#messageArea');
     let connectingElement = document.querySelector('.connecting');
-    let chatFilmId = '${film.filmId}';
+    let chatFilmId = '${movie.filmId}';
     let stompClient = null;
     let username = null;
 
-    let colors = [
-        '#2196F3', '#32c787', '#00BCD4', '#ff5652',
-        '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
-    ];
-
     $(document).ready(function () {
-        document.getElementById("formFilmId").value=('${film.filmId}');
+        document.getElementById("formFilmId").value=('${movie.filmId}');
         let userCookie = getCookie("user");
         if (userCookie) {
             username = userCookie;
-            usernamePage.classList.add('hidden');
-            chatPage.classList.remove('hidden');
+            usernamePage.classList.add('hidden');  //pochemu zdes udalyaetsya hidden
+            // chatPage.classList.remove('hidden');
             let socket = new SockJS('/ws');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, onConnected, onError);
@@ -123,12 +93,14 @@
                     login: username
                 }})
         )
-        connectingElement.classList.add('hidden');
+        // connectingElement.classList.add('hidden'); //
     }
+
     function onError(error) {
         connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
         connectingElement.style.color = 'red';
     }
+
     function sendMessage(event) {
         let messageContent = messageInput.value.trim();
         if(messageContent && stompClient) {
@@ -185,6 +157,7 @@
         messageArea.appendChild(messageElement);
         messageArea.scrollTop = messageArea.scrollHeight;
     }
+
     function getAvatarColor(messageSender) {
         let hash = 0;
         for (let i = 0; i < messageSender.length; i++) {
@@ -211,48 +184,9 @@
         })
     }
 
-    function getAuthList() {
-        let url = "/userInfo/auth";
-
-        $.ajax({
-            type: "GET",
-            url: url,
-            contentType: "application/json",
-            dataType: "json",
-            data: {id: getCookie("userId")},
-            success: function (rs) {
-                $.each(rs, function (key, value) {
-                    $("#authInfo").append('<div><p>' + value.ipAddress + ' ' + value.date + '</p></d>')
-                })
-            },
-            error: function (jqXhr, textStatus, errorMessage) {
-                console.log("Error", errorMessage);
-            }
-        })
-    }
-
-    function getListOfAvatar() {
-        let url = "/chat/usersAvatars/list";
-
-        $.ajax({
-            type: "GET",
-            url: url,
-            contentType: "application/json",
-            dataType: "json",
-            data: {id: getCookie("userId")},
-            success: function (rs) {
-                $.each(rs, function (key, value) {
-                    $("#userAvatars").append('<p><a href="/chat/avatar/' + getCookie("userId") + '/' + value + '" target="_blank">' + value + '</a></p>')
-                })
-            },
-            error: function (jqXhr, textStatus, errorMessage) {
-                console.log("Error", errorMessage);
-            }
-        })
-    }
-
     usernameForm.addEventListener('submit', connect, true)
     messageForm.addEventListener('submit', sendMessage, true)
+
 </script>
 </body>
 </html>

@@ -13,8 +13,12 @@ import java.util.List;
 @Transactional
 public class HallServiceImpl implements HallService{
 
+    private HallRepository hallRepository;
+
     @Autowired
-    HallRepository hallRepository;
+    public HallServiceImpl(HallRepository hallRepository) {
+        this.hallRepository = hallRepository;
+    }
 
     @Override
     public List getAllHalls(Model model) {

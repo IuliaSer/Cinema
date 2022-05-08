@@ -5,8 +5,8 @@ import edu.school21.cinema.models.Hall;
 import java.util.List;
 
 public interface HallRepository {
-    public List<Hall> getAllHalls();
-    public void saveHall(Hall hall);
-    public Hall getHallById(int id);
+    List<Hall> getAllHalls();
+    void saveHall(Hall hall);
+    Hall getHallById(int id);
 
 }

@@ -6,8 +6,8 @@ import org.springframework.ui.Model;
 import java.util.List;
 
 public interface MovieService {
-    public List<Movie> getAll(Model model);
-    public void saveMovie(Movie model);
-    public Movie getMovieById(int movieId);
-    public int getMovieIdByTitle(String movieTitle);
+    List<Movie> getAll(Model model);
+    void saveMovie(Movie model);
+    Movie getMovieById(int movieId);
+    int getMovieIdByTitle(String movieTitle);
 }

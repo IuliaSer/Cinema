@@ -54,7 +54,7 @@ public class SessionController {
         Hall hall = hallService.getHallById(hallId);
         String newDate = date.replace('T', ' ');
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        Session session = new Session(movie, hall, formatter.parse(newDate), price);
+        Session session = new Session(1, movie, hall, formatter.parse(newDate), price); //kakoy id dobavit
         sessionService.saveSession(session);
         return "redirect:/admin/panel/sessions";
     }
