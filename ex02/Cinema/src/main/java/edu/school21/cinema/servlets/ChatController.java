@@ -35,14 +35,23 @@ public class ChatController {
         List<Message> messages = messageService.getLastTwentyMessages(filmId);
         model.addAttribute("messages", messages);
         model.addAttribute("movie", movie);
-        return "Chat";
+        return "chat3";
     }
 
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public Message sendMessage(@Payload Message message) {
+        System.out.println("I am here");
         messageService.save(message);
         return message;
+    }
+
+    @GetMapping("/films/{film-id}/messages")
+    @SendTo("/topic/public")
+    public String showMessages(@PathVariable("film-id") int filmId, Model model) {
+        List<Message> messages = messageService.getLastTwentyMessages(filmId);
+        model.addAttribute("messages", messages);
+        return "chat3";
     }
 
     @MessageMapping("/chat.addUser")

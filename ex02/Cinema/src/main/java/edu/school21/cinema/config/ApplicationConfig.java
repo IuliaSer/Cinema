@@ -42,15 +42,6 @@ public class ApplicationConfig {
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
     }
-    @Bean
-    public HallService hallService() {
-        return new HallServiceImpl();
-    }
-
-    @Bean
-    public HallRepository hallRepository() {
-        return new HallRepositoryImpl();
-    }
 
     @Bean
     public String uploadPath() {
