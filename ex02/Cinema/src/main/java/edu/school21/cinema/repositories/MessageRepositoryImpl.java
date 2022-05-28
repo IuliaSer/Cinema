@@ -17,7 +17,7 @@ public class MessageRepositoryImpl implements MessageRepository {
 
     @Override
     public void save(Message message) {
-        entityManager.persist(message);
+        entityManager.merge(message);
     }
 
     @Override

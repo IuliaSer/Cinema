@@ -13,8 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ChatController {
@@ -41,17 +44,17 @@ public class ChatController {
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public Message sendMessage(@Payload Message message) {
-        System.out.println("I am here");
         messageService.save(message);
         return message;
     }
 
-    @GetMapping("/films/{film-id}/messages")
-    @SendTo("/topic/public")
-    public String showMessages(@PathVariable("film-id") int filmId, Model model) {
+    @GetMapping("/films/{film-id}/chat/messages")
+    @ResponseBody
+    public Map<String, Object> showMessages(@PathVariable("film-id") int filmId, Model model) {
         List<Message> messages = messageService.getLastTwentyMessages(filmId);
-        model.addAttribute("messages", messages);
-        return "chat3";
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("messages", messages);
+        return result;
     }
 
     @MessageMapping("/chat.addUser")

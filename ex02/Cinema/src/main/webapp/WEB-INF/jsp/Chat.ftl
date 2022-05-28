@@ -1,192 +1,139 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <style>
-        <#setting classic_compatible=true>
-<#--        <#include "css/chat.css">-->
-    </style>
-    <title>Chat</title>
-    <meta charset="UTF-8">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="../../css/chatStyles.css" media="screen, projection">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+    <script type="text/javascript">
+        var stompClient = null;
+        function connect() {
+            var socket = new SockJS('../../chat');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function() {
+                stompClient.subscribe('/films/' + ${film.id?string.computer}  + '/chat/messages', function(messageOutput) {
+                    showMessageOutput(JSON.parse(messageOutput.body));
+                    scrollToBottom();
+                });
+            });
+        }
+        function setCookie(name, value, options = {}) {
+            options = {
+                path: '/',
+                ...options
+            };
+            if (options.expires instanceof Date) {
+                options.expires = options.expires.toUTCString();
+            }
+            let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+            for (let optionKey in options) {
+                updatedCookie += "; " + optionKey;
+                let optionValue = options[optionKey];
+                if (optionValue !== true) {
+                    updatedCookie += "=" + optionValue;
+                }
+            }
+            document.cookie = updatedCookie;
+        }
+
+        function getCookie(name) {
+            let matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        function sendMessage() {
+
+            var text = document.getElementById('text').value;
+            var filmId = ${film.id?string.computer};
+            var userName = getCookie('chatUser');
+            if (userName == undefined) {
+                while (!userName) {
+                    userName = window.prompt('Enter your nickname');
+                }
+                userName = userName + new Date().getTime();
+                setCookie('chatUser', userName, {})
+            }
+            document.getElementById('text').value = "";
+            stompClient.send('/app/' + ${film.id?string.computer} + '/chat', {},
+                JSON.stringify({'filmId': filmId, 'userName': userName, 'text': text}));
+        }
+
+        function showMessageOutput(messageOutput) {
+            var response = document.getElementById('response');
+            var p = document.createElement('p');
+            var br = document.createElement('br');
+            p.style.wordWrap = 'break-word';
+            var div = document.createElement('div');
+            p.className = "align-left";
+            var userName = messageOutput.userName;
+            if (messageOutput.userName == getCookie('chatUser'))
+            {
+                userName ="Me";
+                p.className = "align-right";
+            }
+            else
+                userName = userName.toString().slice(0,-13);
+            p.appendChild(document.createTextNode(userName + ": "
+                + messageOutput.text));
+            div.append(p);
+            response.appendChild(div);
+        }
+
+        function showStoredMessages() {
+            $.ajax({
+                url: "messages",
+                type: "GET",
+                success: function (response) {
+                    var messages = response.messages;
+                    for (var i = 0; i < messages.length; i++) {
+                        showMessageOutput(messages[i]);
+                    }
+                    scrollToBottom();
+                }
+            })
+            return false;
+        }
+
+        function scrollToBottom() {
+            var element = document.getElementById('response');
+            element.scrollTop = element.scrollHeight;
+        }
+
+    </script>
+
+    <title>Cinema - Chat</title>
+
 </head>
 
-<body>
-<div id="username-page">
-    <div class="username-page-container">
-        <h1 class="title">Type your username</h1>
-        <form id="usernameForm" name="usernameForm">
-                <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
-                <b> </b>
-                <button type="submit" class="accent username-submit">Start Chatting</button>
-        </form>
+<body onload="connect();showStoredMessages()">
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-md">
+            <a class="navbar-brand" href="#">Film: ${film.name} (${film.releaseYear})</a>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="message-box-border">
+        <div id="response" class="message-box" ></div>
     </div>
+    <input type="text" id="text" placeholder="Write a message..."/>
+    <button type="submit" id="sendMessage" onclick="sendMessage()">Send</button>
 </div>
 
-<div id="chat-page" class="hidden">
-    <div class="chat-container">
-        <h2>${movie.title}</h2>
-<#--        <div class="connecting">-->
-<#--            Connecting...-->
-<#--        </div>-->
-        <ul id="messageArea">
-            <#list messages as message>
-                <li class="chat-message">
-                    <span>${message.user.login}</span>
-                    <p>${message.message}</p>
-                </li>
-            </#list>
-        </ul>
-        <form id="messageForm" name="messageForm">
-                <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
-                <button type="submit" class="primary">Send</button>
-        </form>
-    </div>
+<footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</footer>
 
-</div>
-
-
-<#--<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>-->
-<#--<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>-->
-<#--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>-->
-<#--<script>-->
-<#--    'use strict';-->
-<#--    let usernamePage = document.querySelector('#username-page');-->
-<#--    let chatPage = document.querySelector('#chat-page');-->
-<#--    let usernameForm = document.querySelector('#usernameForm');-->
-<#--    let messageForm = document.querySelector('#messageForm');-->
-<#--    let messageInput = document.querySelector('#message');-->
-<#--    let messageArea = document.querySelector('#messageArea');-->
-<#--    let connectingElement = document.querySelector('.connecting');-->
-<#--    let chatFilmId = '${movie.filmId}';-->
-<#--    let stompClient = null;-->
-<#--    let username = null;-->
-
-<#--    $(document).ready(function () {-->
-<#--        document.getElementById("formFilmId").value=('${movie.filmId}');-->
-<#--        let userCookie = getCookie("user");-->
-<#--        if (userCookie) {-->
-<#--            username = userCookie;-->
-<#--            usernamePage.classList.add('hidden');  -->
-<#--            // chatPage.classList.remove('hidden'); //pochemu zdes udalyaetsya hidden-->
-<#--            let socket = new SockJS('/ws');-->
-<#--            stompClient = Stomp.over(socket);-->
-<#--            stompClient.connect({}, onConnected, onError);-->
-<#--        }-->
-<#--    })-->
-
-<#--    function connect(event) {-->
-<#--        username = document.querySelector('#name').value.trim();-->
-<#--        if(username) {-->
-<#--            document.cookie = "user=" + username;-->
-<#--            usernamePage.classList.add('hidden');-->
-<#--            chatPage.classList.remove('hidden');-->
-<#--            let socket = new SockJS('/ws');-->
-<#--            stompClient = Stomp.over(socket);-->
-<#--            stompClient.connect({}, onConnected, onError);-->
-<#--        }-->
-<#--        event.preventDefault();-->
-<#--    }-->
-
-<#--    function onConnected() {-->
-<#--        stompClient.subscribe('/topic/public', onMessageReceived);-->
-<#--        stompClient.send("/app/chat.addUser",-->
-<#--            {},-->
-<#--            JSON.stringify({type: 'JOIN', user: {-->
-<#--                    login: username-->
-<#--                }})-->
-<#--        )-->
-<#--        // connectingElement.classList.add('hidden'); //-->
-<#--    }-->
-
-<#--    function onError(error) {-->
-<#--        connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';-->
-<#--        connectingElement.style.color = 'red';-->
-<#--    }-->
-
-<#--    function sendMessage(event) {-->
-<#--        let messageContent = messageInput.value.trim();-->
-<#--        if(messageContent && stompClient) {-->
-<#--            let chatMessage = {-->
-<#--                message: messageInput.value,-->
-<#--                type: 'CHAT',-->
-<#--                film: {-->
-<#--                    filmId: chatFilmId-->
-<#--                },-->
-<#--                user: {-->
-<#--                    id: getCookie("userId"),-->
-<#--                    login: username-->
-<#--                }-->
-<#--            };-->
-<#--            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));-->
-<#--            messageInput.value = '';-->
-<#--        }-->
-<#--        event.preventDefault();-->
-<#--    }-->
-
-<#--    function onMessageReceived(payload) {-->
-<#--        let message = JSON.parse(payload.body);-->
-<#--        let messageElement = document.createElement('li');-->
-<#--        if (message.type === 'JOIN') {-->
-<#--            messageElement.classList.add('event-message');-->
-<#--            message.message = message.user.login + ' joined!';-->
-<#--            if (!getCookie("userId")) {-->
-<#--                document.cookie = "userId=" + message.user.id;-->
-<#--            }-->
-<#--            if (getCookie("userId") == message.user.id) {-->
-<#--                document.getElementById("formUserId").value=(getCookie("userId"));-->
-<#--                getAuthList();-->
-<#--                getListOfAvatar();-->
-<#--            }-->
-<#--        } else if (message.type === 'LEAVE') {-->
-<#--            messageElement.classList.add('event-message');-->
-<#--            message.message = message.user.login + ' left!';-->
-<#--        } else {-->
-<#--            messageElement.classList.add('chat-message');-->
-<#--            let avatarElement = document.createElement('i');-->
-<#--            let avatarText = document.createTextNode(message.user.login[0]);-->
-<#--            avatarElement.appendChild(avatarText);-->
-<#--            avatarElement.style['background-color'] = getAvatarColor(message.user.login);-->
-<#--            messageElement.appendChild(avatarElement);-->
-<#--            let usernameElement = document.createElement('span');-->
-<#--            let usernameText = document.createTextNode(message.user.login);-->
-<#--            usernameElement.appendChild(usernameText);-->
-<#--            messageElement.appendChild(usernameElement);-->
-<#--        }-->
-<#--        let textElement = document.createElement('p');-->
-<#--        let messageText = document.createTextNode(message.message);-->
-<#--        textElement.appendChild(messageText);-->
-<#--        messageElement.appendChild(textElement);-->
-<#--        messageArea.appendChild(messageElement);-->
-<#--        messageArea.scrollTop = messageArea.scrollHeight;-->
-<#--    }-->
-
-<#--    function getAvatarColor(messageSender) {-->
-<#--        let hash = 0;-->
-<#--        for (let i = 0; i < messageSender.length; i++) {-->
-<#--            hash = 31 * hash + messageSender.charCodeAt(i);-->
-<#--        }-->
-<#--        let index = Math.abs(hash % colors.length);-->
-<#--        return colors[index];-->
-<#--    }-->
-
-<#--    function getCookie(name) {-->
-<#--        let matches = document.cookie.match(new RegExp(-->
-<#--            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"-->
-<#--        ));-->
-<#--        return matches ? decodeURIComponent(matches[1]) : undefined;-->
-<#--    }-->
-
-<#--    function setCookie(name, value) {-->
-<#--        document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);-->
-<#--    }-->
-
-<#--    function deleteCookie(name) {-->
-<#--        setCookie(name, "", {-->
-<#--            'max-age': -1-->
-<#--        })-->
-<#--    }-->
-
-<#--    usernameForm.addEventListener('submit', connect, true)-->
-<#--    messageForm.addEventListener('submit', sendMessage, true)-->
-
-<#--</script>-->
 </body>
 </html>
