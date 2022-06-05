@@ -38,7 +38,7 @@ public class ChatController {
         List<Message> messages = messageService.getLastTwentyMessages(filmId);
         model.addAttribute("messages", messages);
         model.addAttribute("movie", movie);
-        return "chat3";
+        return "Chat2";
     }
 
     @MessageMapping("/chat.sendMessage")
@@ -48,7 +48,7 @@ public class ChatController {
         return message;
     }
 
-    @GetMapping("/films/{film-id}/chat/messages")
+    @GetMapping("/films/{film-id}/messages")
     @ResponseBody
     public Map<String, Object> showMessages(@PathVariable("film-id") int filmId, Model model) {
         List<Message> messages = messageService.getLastTwentyMessages(filmId);

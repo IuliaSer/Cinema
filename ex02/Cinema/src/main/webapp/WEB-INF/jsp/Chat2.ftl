@@ -13,11 +13,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
     <script type="text/javascript">
         var stompClient = null;
+
         function connect() {
             var socket = new SockJS('../../chat');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function() {
-                stompClient.subscribe('/films/' + ${film.id?string.computer}  + '/chat/messages', function(messageOutput) {
+                stompClient.subscribe('/films/' + ${movie.id?string.computer}  + '/chat/messages', function(messageOutput) {
                     showMessageOutput(JSON.parse(messageOutput.body));
                     scrollToBottom();
                 });
@@ -52,7 +53,7 @@
         function sendMessage() {
 
             var text = document.getElementById('text').value;
-            var filmId = ${film.id?string.computer};
+            var movieId = ${movie.id};
             var userName = getCookie('chatUser');
             if (userName == undefined) {
                 while (!userName) {
@@ -62,7 +63,7 @@
                 setCookie('chatUser', userName, {})
             }
             document.getElementById('text').value = "";
-            stompClient.send('/app/' + ${film.id?string.computer} + '/chat', {},
+            stompClient.send('/app/' + ${movie.id?string.computer} + '/chat', {},
                 JSON.stringify({'filmId': filmId, 'userName': userName, 'text': text}));
         }
 
@@ -73,7 +74,9 @@
             p.style.wordWrap = 'break-word';
             var div = document.createElement('div');
             p.className = "align-left";
-            var userName = messageOutput.userName;
+            var userName = messageOutput.user.login;
+            document.write("show messages" + userName);
+
             if (messageOutput.userName == getCookie('chatUser'))
             {
                 userName ="Me";
@@ -84,6 +87,7 @@
             p.appendChild(document.createTextNode(userName + ": "
                 + messageOutput.text));
             div.append(p);
+            div.append(br);
             response.appendChild(div);
         }
 
@@ -113,12 +117,12 @@
 
 </head>
 
-<body onload="connect();showStoredMessages()">
+<body onload="connect();">
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-md">
-            <a class="navbar-brand" href="#">Film: ${film.name} (${film.releaseYear})</a>
+            <a class="navbar-brand" href="#">Film: ${movie.title} (${movie.year})</a>
         </div>
     </nav>
 </header>
