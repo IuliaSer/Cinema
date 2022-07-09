@@ -10,6 +10,7 @@
         border-spacing: 15px 5px;
     }
 </style>
+
 <div id="table">
     <table>
         <tr>
@@ -21,8 +22,8 @@
             <tr>
             <td> ${hall.serialNum} </td>
             <td> ${hall.amountOfSeats} </td>
-        </tr>
-            </#list>
+            </tr>
+        </#list>
 
     </table>
 </div>

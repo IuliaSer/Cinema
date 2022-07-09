@@ -38,11 +38,12 @@ public class ChatController {
         List<Message> messages = messageService.getLastTwentyMessages(filmId);
         model.addAttribute("messages", messages);
         model.addAttribute("movie", movie);
-        return "Chat2";
+        return "chat";
     }
 
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
+//    @SendTo("'/films/' + ${movie.id?string.computer}  + '/chat'")
     public Message sendMessage(@Payload Message message) {
         messageService.save(message);
         return message;
@@ -50,7 +51,7 @@ public class ChatController {
 
     @GetMapping("/films/{film-id}/messages")
     @ResponseBody
-    public Map<String, Object> showMessages(@PathVariable("film-id") int filmId, Model model) {
+    public Map<String, Object> showMessages(@PathVariable("film-id") int filmId) {
         List<Message> messages = messageService.getLastTwentyMessages(filmId);
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("messages", messages);

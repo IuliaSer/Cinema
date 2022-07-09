@@ -18,7 +18,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
     <script type="text/javascript">
@@ -27,13 +26,14 @@
         var stompClient = null;
         let messageForm = document.querySelector('#messageForm');
 
-
         function connect() {
             var socket = new SockJS('../../chat');
             stompClient = Stomp.over(socket);
-            stompClient.connect({}, function(frame) {
+            stompClient.connect({}, function() {
+                <#--stompClient.subscribe('/films/' + ${movie.id?string.computer}  + '/chat', function(messageOutput)-->
                 stompClient.subscribe('/topic/public', function(messageOutput) {
                     showMessageOutput(JSON.parse(messageOutput.body));
+                    scrollToBottom();
                 });
             });
         }
@@ -96,32 +96,27 @@
             }
         }
 
-            function showMessageOutput(messageOutput) {
-                var response = document.getElementById('response');
-                var p = document.createElement('p');
-                var br = document.createElement('br');
-                p.style.wordWrap = 'break-word';
-                var div = document.createElement('div');
-                p.className = "align-left";
-                var userName = messageOutput.user.login;
-                document.write("show messages" + userName);
-                if (messageOutput.userName == getCookie('chatUser')) {
-                    userName = "Me";
-                    p.className = "align-right";
-                }
-                else
-                    userName = userName.toString().slice(0,-13);
-                p.appendChild(document.createTextNode(userName + ": "
-                    + messageOutput.text
-                    //     + "\r\n(" + messageOutput.dateTime + ")"
-                ));
-                // br.append(document.createTextNode(userName));
-                div.append(p);
-                div.append(br);
-                response.appendChild(div);
-            }
+        function showMessageOutput(messageOutput) {
+            var response = document.getElementById('response');
+            var p = document.createElement('p');
+            var br = document.createElement('br');
+            p.style.wordWrap = 'break-word';
+            var div = document.createElement('div');
+            p.className = "align-left";
+            var userName = messageOutput.user.login;
+            if (messageOutput.user.login == getCookie('chatUser')) {
+                userName ="Me";
+                p.className = "align-right";
+            } else
+                userName = userName.toString().slice(0,-13);
+            p.appendChild(document.createTextNode(userName + ": "
+                + messageOutput.message));
+            div.append(p);
+            div.append(br);
+            response.appendChild(div);
+        }
 
-            function checkUserName() {
+        function checkUserName() {
                 var userName = getCookie('chatUser');
                 if (userName !== undefined) {
                     document.getElementById('userName').setAttribute('value', userName);
@@ -129,25 +124,28 @@
                 }
             }
 
-            function show() {
-                $.ajax({
-                    url: "messages",
-                    type: "GET",
-                    success: function (response) {
-                        var messages = response.messages;
-                        for (var i = 0; i < messages.length; i++) {
-                            showMessageOutput(messages[i]);
-                        }
+        function show() {
+            $.ajax({
+                type: "GET",
+                success: function (response) {
+                    var messages = response.messages;
+                    for (var i = 0; i < messages.length; i++) {
+                        showMessageOutput(messages[i]);
                     }
-                })
-                return false;
-            }
+                }
+            })
+            return false;
+        }
 
+        function scrollToBottom() {
+            var element = document.getElementById('response');
+            element.scrollTop = element.scrollHeight;
+        }
 
     </script>
     <title>Cinema - Chat</title>
 
-<body onload="connect();checkUserName();">
+<body onload="connect();show()">
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -157,17 +155,14 @@
     </nav>
 </header>
 
+
 <div class="container">
-    <input type="text" hidden id="userName" placeholder="Choose a nickname" />
     <div class="message-box-border">
-        <div id="response" class="message-box"></div>
+        <div id="response" class="message-box" ></div>
     </div>
-
     <input type="text" id="text" placeholder="Write a message..."/>
-    <button id="sendMessage" onclick="sendMessage();">Send</button>
+    <button type="submit" id="sendMessage" onclick="sendMessage()">Send</button>
 </div>
-
-<#--messageForm.addEventListener('submit', sendMessage, true)-->
 
 <footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
