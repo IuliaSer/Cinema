@@ -30,7 +30,6 @@
             var socket = new SockJS('../../chat');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function() {
-                <#--stompClient.subscribe('/films/' + ${movie.id?string.computer}  + '/chat', function(messageOutput)-->
                 stompClient.subscribe('/topic/public', function(messageOutput) {
                     showMessageOutput(JSON.parse(messageOutput.body));
                     scrollToBottom();
@@ -86,7 +85,6 @@
                         id: movieId
                     },
                     user: {
-                        // id: getCookie("userId"), //tut ispravit
                         login: userName
                     }
                 };
