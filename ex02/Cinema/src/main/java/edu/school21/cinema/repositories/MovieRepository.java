@@ -1,6 +1,6 @@
 package edu.school21.cinema.repositories;
 
-import edu.school21.cinema.models.Movie;
+import edu.school21.cinema.model.Movie;
 import org.springframework.ui.Model;
 
 import java.util.List;

@@ -1,9 +1,9 @@
 package edu.school21.cinema.servlets;
 
-import edu.school21.cinema.models.Hall;
-import edu.school21.cinema.models.Movie;
-import edu.school21.cinema.models.Session;
-import edu.school21.cinema.models.dto.SessionDto;
+import edu.school21.cinema.model.Hall;
+import edu.school21.cinema.model.Movie;
+import edu.school21.cinema.model.Session;
+import edu.school21.cinema.model.dto.SessionDto;
 import edu.school21.cinema.services.HallService;
 import edu.school21.cinema.services.MovieService;
 import edu.school21.cinema.services.SessionService;

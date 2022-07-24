@@ -1,7 +1,7 @@
-package edu.school21.cinema.models.dto;
+package edu.school21.cinema.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import edu.school21.cinema.models.Session;
+import edu.school21.cinema.model.Session;
 import java.util.Date;
 
 public class SessionDto {

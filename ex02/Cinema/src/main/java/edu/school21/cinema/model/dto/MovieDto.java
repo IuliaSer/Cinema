@@ -1,6 +1,6 @@
-package edu.school21.cinema.models.dto;
+package edu.school21.cinema.model.dto;
 
-import edu.school21.cinema.models.Movie;
+import edu.school21.cinema.model.Movie;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

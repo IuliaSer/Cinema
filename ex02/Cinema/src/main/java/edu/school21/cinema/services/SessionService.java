@@ -1,6 +1,6 @@
 package edu.school21.cinema.services;
 
-import edu.school21.cinema.models.Session;
+import edu.school21.cinema.model.Session;
 
 import java.util.List;
 

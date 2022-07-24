@@ -1,14 +1,15 @@
 package edu.school21.cinema.servlets;
 
-import edu.school21.cinema.models.Message;
-import edu.school21.cinema.models.Movie;
+import edu.school21.cinema.model.Message;
+import edu.school21.cinema.model.Movie;
+import edu.school21.cinema.model.User;
+import edu.school21.cinema.repositories.UserRepository;
 import edu.school21.cinema.services.MessageService;
 import edu.school21.cinema.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,14 +23,16 @@ import java.util.Map;
 @Controller
 public class ChatController {
 
-    private MessageService messageService;
-    private MovieService movieService;
+    private final MessageService messageService;
+    private final MovieService movieService;
+    private final UserRepository userRepository;
 
 
     @Autowired
-    public ChatController(MessageService messageService, MovieService movieService) {
+    public ChatController(MessageService messageService, MovieService movieService, UserRepository userRepository) {
         this.messageService = messageService;
         this.movieService = movieService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/films/{film-id}/chat")
@@ -43,8 +46,15 @@ public class ChatController {
 
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
-//    @SendTo("'/films/' + ${movie.id?string.computer}  + '/chat'")
     public Message sendMessage(@Payload Message message) {
+        User user = message.getUser();
+        User checkUser = userRepository.findByLogin(user.getLogin());
+        if (checkUser == null) {
+            user.setId(userRepository.save(user));
+        } else {
+            user = checkUser;
+        }
+        message.getUser().setId(user.getId());
         messageService.save(message);
         return message;
     }
@@ -58,13 +68,13 @@ public class ChatController {
         return result;
     }
 
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public Message addUser(@Payload Message message, SimpMessageHeaderAccessor headerAccessor) {
-        headerAccessor.getSessionAttributes().put("username", message.getUser().getLogin());
-//        String clientIp = (String) headerAccessor.getSessionAttributes().get("ip");
-//        message.getUser().setId(authenticationService.authUser(message.getUser(), clientIp));
-        return message;
-    }
+//    @MessageMapping("/chat.addUser")
+//    @SendTo("/topic/public")
+//    public Message addUser(@Payload Message message, SimpMessageHeaderAccessor headerAccessor) {
+//        headerAccessor.getSessionAttributes().put("username", message.getUser().getLogin());
+////        String clientIp = (String) headerAccessor.getSessionAttributes().get("ip");
+////        message.getUser().setId(authenticationService.authUser(message.getUser(), clientIp));
+//        return message;
+//    }
 
 }

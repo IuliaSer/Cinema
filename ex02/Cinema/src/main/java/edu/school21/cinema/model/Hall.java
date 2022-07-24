@@ -1,4 +1,5 @@
-package edu.school21.cinema.models;
+package edu.school21.cinema.model;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,12 +13,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
-
+@Table(name = "halls")
+public class Hall {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name="serial_num")
+    private int serialNum;
 
-    private String login;
+    @Column(name="amount_of_seats")
+    private int amountOfSeats;
 }

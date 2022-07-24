@@ -1,6 +1,6 @@
 package edu.school21.cinema.services;
 
-import edu.school21.cinema.models.Message;
+import edu.school21.cinema.model.Message;
 import java.util.List;
 
 public interface MessageService {

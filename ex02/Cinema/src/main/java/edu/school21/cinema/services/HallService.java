@@ -1,6 +1,6 @@
 package edu.school21.cinema.services;
 
-import edu.school21.cinema.models.Hall;
+import edu.school21.cinema.model.Hall;
 import org.springframework.ui.Model;
 
 import java.util.List;

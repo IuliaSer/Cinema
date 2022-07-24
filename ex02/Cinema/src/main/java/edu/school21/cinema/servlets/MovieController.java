@@ -1,13 +1,10 @@
 package edu.school21.cinema.servlets;
 
-import edu.school21.cinema.models.Message;
-import edu.school21.cinema.models.Movie;
+import edu.school21.cinema.model.Movie;
 import edu.school21.cinema.services.MovieService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

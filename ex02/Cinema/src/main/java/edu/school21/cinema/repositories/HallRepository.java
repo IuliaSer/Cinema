@@ -1,6 +1,6 @@
 package edu.school21.cinema.repositories;
 
-import edu.school21.cinema.models.Hall;
+import edu.school21.cinema.model.Hall;
 
 import java.util.List;
 

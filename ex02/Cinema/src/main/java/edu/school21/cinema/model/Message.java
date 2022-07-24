@@ -1,4 +1,4 @@
-package edu.school21.cinema.models;
+package edu.school21.cinema.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

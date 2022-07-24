@@ -87,7 +87,6 @@
                     },
                     user: {
                         // id: getCookie("userId"), //tut ispravit
-                        id: 1,
                         login: userName
                     }
                 };
