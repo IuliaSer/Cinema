@@ -1,7 +1,7 @@
-package edu.school21.cinema.servlets;
+package edu.school21.cinema.controller;
 
 import edu.school21.cinema.model.Hall;
-import edu.school21.cinema.services.HallService;
+import edu.school21.cinema.service.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,6 +1,6 @@
-package edu.school21.cinema.services;
+package edu.school21.cinema.service;
 
-import edu.school21.cinema.repositories.MessageRepository;
+import edu.school21.cinema.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import edu.school21.cinema.model.Message;

@@ -1,7 +1,7 @@
-package edu.school21.cinema.servlets;
+package edu.school21.cinema.controller;
 
 import edu.school21.cinema.model.Movie;
-import edu.school21.cinema.services.MovieService;
+import edu.school21.cinema.service.MovieService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;

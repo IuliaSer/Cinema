@@ -25,7 +25,7 @@ public class DispatcherConfig implements WebMvcConfigurer {
 
     @Bean
     public FreeMarkerConfigurer freeMarkerConfigurer() {
-        FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer(); //?
+        FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
         freeMarkerConfigurer.setTemplateLoaderPath("/WEB-INF/jsp/");
 
         return freeMarkerConfigurer;

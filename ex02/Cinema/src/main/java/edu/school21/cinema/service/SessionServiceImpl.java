@@ -1,7 +1,7 @@
-package edu.school21.cinema.services;
+package edu.school21.cinema.service;
 
 import edu.school21.cinema.model.Session;
-import edu.school21.cinema.repositories.SessionRepository;
+import edu.school21.cinema.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

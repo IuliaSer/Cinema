@@ -1,18 +1,13 @@
 <!doctype html>
 <html lang="en">
 <head>
-
-<#--    <form id="messageForm" name="messageForm">-->
-<#--        <div class="form-group">-->
-<#--            <div class="input-group clearfix">-->
-<#--                <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>-->
-<#--                <button type="submit" class="primary">Send</button>-->
-<#--            </div>-->
-<#--        </div>-->
-<#--    </form>-->
-
-
-    <meta charset="utf-8">
+    <style>
+        <#setting classic_compatible=true>
+<#--        <#include "css/chat.css">-->
+    </style>
+    <title>Chat</title>
+    <meta charset="UTF-8">
+</head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -22,9 +17,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
     <script type="text/javascript">
 
-
         var stompClient = null;
         let messageForm = document.querySelector('#messageForm');
+        var movieId = null;
 
         function connect() {
             var socket = new SockJS('../../chat');
@@ -40,7 +35,6 @@
         function setCookie(name, value, options = {}) {
             options = {
                 path: '/',
-                // при необходимости добавьте другие значения по умолчанию
                 ...options
             };
             if (options.expires instanceof Date) {
@@ -67,13 +61,13 @@
 
         function sendMessage() {
             var text = document.getElementById('text').value;
-            var movieId = ${movie.id};
+            movieId = ${movie.id};
             var userName = getCookie('chatUser');
             if (userName == undefined) {
                 while (!userName) {
                     userName = window.prompt('Enter your nickname');
                 }
-                userName = userName + '#' + new Date().getTime();
+                // userName = userName + '#' + new Date().getTime();
                 setCookie('chatUser', userName, {})
                 document.getElementById('userName').setAttribute('readonly', 'readonly');
                 document.getElementById('userName').setAttribute('value', userName);
@@ -93,24 +87,22 @@
             }
         }
 
-        function showMessageOutput(messageOutput) {
-            var response = document.getElementById('response');
-            var p = document.createElement('p');
-            var br = document.createElement('br');
-            p.style.wordWrap = 'break-word';
-            var div = document.createElement('div');
-            p.className = "align-left";
-            var userName = messageOutput.user.login;
-            if (messageOutput.user.login == getCookie('chatUser')) {
-                userName ="Me";
-                p.className = "align-right";
-            } else
-                userName = userName.toString().slice(0,-13);
-            p.appendChild(document.createTextNode(userName + ": "
-                + messageOutput.message));
-            div.append(p);
-            div.append(br);
-            response.appendChild(div);
+        function showMessageOutput(message) {
+            let messageElement = document.createElement('li');
+
+            messageElement.classList.add('chat-message');
+            let usernameElement = document.createElement('span');
+            let usernameText = document.createTextNode(message.user.login);
+            usernameElement.appendChild(usernameText);
+
+            messageElement.appendChild(usernameElement);
+
+            let textElement = document.createElement('p');
+            let messageText = document.createTextNode(message.message);
+            textElement.appendChild(messageText);
+            messageElement.appendChild(textElement);
+            messageArea.appendChild(messageElement);
+
         }
 
         function checkUserName() {
@@ -121,19 +113,6 @@
                 }
             }
 
-        function show() {
-            $.ajax({
-                type: "GET",
-                success: function (response) {
-                    var messages = response.messages;
-                    for (var i = 0; i < messages.length; i++) {
-                        showMessageOutput(messages[i]);
-                    }
-                }
-            })
-            return false;
-        }
-
         function scrollToBottom() {
             var element = document.getElementById('response');
             element.scrollTop = element.scrollHeight;
@@ -142,24 +121,24 @@
     </script>
     <title>Cinema - Chat</title>
 
-<body onload="connect();show()">
+<body onload="connect();">
 
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-md">
-            <a class="navbar-brand" href="#">Cinema</a>
-        </div>
-    </nav>
-</header>
+<div id="chat-page">
+<div class="chat-container">
+    <ul id="messageArea">-->
+            <#list messages as message>
+                <li class="chat-message">
+                    <span>${message.user.login}</span>
+                    <p>${message.message}</p>
+                </li>
+            </#list>
+    </ul>
 
-
-<div class="container">
-    <div class="message-box-border">
-        <div id="response" class="message-box" ></div>
-    </div>
     <input type="text" id="text" placeholder="Write a message..."/>
     <button type="submit" id="sendMessage" onclick="sendMessage()">Send</button>
 </div>
+</div>
+
 
 <footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

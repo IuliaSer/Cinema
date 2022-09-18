@@ -1,12 +1,12 @@
-package edu.school21.cinema.servlets;
+package edu.school21.cinema.controller;
 
 import edu.school21.cinema.model.Hall;
 import edu.school21.cinema.model.Movie;
 import edu.school21.cinema.model.Session;
 import edu.school21.cinema.model.dto.SessionDto;
-import edu.school21.cinema.services.HallService;
-import edu.school21.cinema.services.MovieService;
-import edu.school21.cinema.services.SessionService;
+import edu.school21.cinema.service.HallService;
+import edu.school21.cinema.service.MovieService;
+import edu.school21.cinema.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;

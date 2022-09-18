@@ -1,11 +1,11 @@
-package edu.school21.cinema.servlets;
+package edu.school21.cinema.controller;
 
 import edu.school21.cinema.model.Message;
 import edu.school21.cinema.model.Movie;
 import edu.school21.cinema.model.User;
-import edu.school21.cinema.repositories.UserRepository;
-import edu.school21.cinema.services.MessageService;
-import edu.school21.cinema.services.MovieService;
+import edu.school21.cinema.repository.UserRepository;
+import edu.school21.cinema.service.MessageService;
+import edu.school21.cinema.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -50,7 +50,7 @@ public class ChatController {
         User user = message.getUser();
         User checkUser = userRepository.findByLogin(user.getLogin());
         if (checkUser == null) {
-            user.setId(userRepository.save(user));
+            user.setId(userRepository.save(user)); //exception!
         } else {
             user = checkUser;
         }
@@ -59,15 +59,23 @@ public class ChatController {
         return message;
     }
 
+//    @GetMapping("/films/{film-id}/messages")
+//    @ResponseBody
+//    public Map<String, Object> showMessages(@PathVariable("film-id") int filmId) {
+//        List<Message> messages = messageService.getLastTwentyMessages(filmId);
+//        Map<String, Object> result = new LinkedHashMap<>();
+//        result.put("messages", messages);
+//        return "messages";
+//    }
+
     @GetMapping("/films/{film-id}/messages")
-    @ResponseBody
-    public Map<String, Object> showMessages(@PathVariable("film-id") int filmId) {
+    public String showMessages(@PathVariable("film-id") int filmId, Model model) {
         List<Message> messages = messageService.getLastTwentyMessages(filmId);
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("messages", messages);
-        return result;
+        model.addAttribute("messages", messages);
+        return "messages";
     }
-
 //    @MessageMapping("/chat.addUser")
 //    @SendTo("/topic/public")
 //    public Message addUser(@Payload Message message, SimpMessageHeaderAccessor headerAccessor) {

@@ -1,4 +1,4 @@
-package edu.school21.cinema.repositories;
+package edu.school21.cinema.repository;
 
 import edu.school21.cinema.model.Message;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,7 @@
-package edu.school21.cinema.services;
+package edu.school21.cinema.service;
 
 import edu.school21.cinema.model.Hall;
-import edu.school21.cinema.repositories.HallRepository;
+import edu.school21.cinema.repository.HallRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

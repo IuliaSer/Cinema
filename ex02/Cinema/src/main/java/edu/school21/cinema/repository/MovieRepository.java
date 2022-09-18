@@ -1,13 +1,13 @@
-package edu.school21.cinema.services;
+package edu.school21.cinema.repository;
 
 import edu.school21.cinema.model.Movie;
 import org.springframework.ui.Model;
 
 import java.util.List;
 
-public interface MovieService {
+public interface MovieRepository {
     List<Movie> getAll(Model model);
-    void saveMovie(Movie model);
+    void saveMovie(Movie movie);
     Movie getMovieById(int movieId);
-    int getMovieIdByTitle(String movieTitle);
+    int getMovieIdByTitle(String title);
 }

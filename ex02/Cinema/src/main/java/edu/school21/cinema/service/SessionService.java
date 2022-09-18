@@ -1,4 +1,4 @@
-package edu.school21.cinema.services;
+package edu.school21.cinema.service;
 
 import edu.school21.cinema.model.Session;
 

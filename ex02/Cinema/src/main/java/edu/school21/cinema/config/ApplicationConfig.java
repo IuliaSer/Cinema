@@ -1,9 +1,5 @@
 package edu.school21.cinema.config;
 
-import edu.school21.cinema.repositories.HallRepository;
-import edu.school21.cinema.repositories.HallRepositoryImpl;
-import edu.school21.cinema.services.HallService;
-import edu.school21.cinema.services.HallServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
