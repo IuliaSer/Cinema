@@ -22,10 +22,7 @@ public class MessageRepositoryImpl implements MessageRepository {
 
     @Override
     public List<Message> getLastTwentyMessages(int filmId) {
-//        Query query = entityManager.createQuery("from Message", Message.class);
-//        List<Message> list = query.getResultList();
         return entityManager.createQuery("from Message where movie.id = " + filmId, Message.class).getResultList();
-//        return list;
     }
 
 }

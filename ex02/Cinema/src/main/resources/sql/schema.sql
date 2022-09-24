@@ -29,8 +29,8 @@ CREATE TABLE sessions(
 DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users(
-                         id SERIAL PRIMARY KEY,
-                         login varchar(20)
+                         id BIGSERIAL PRIMARY KEY,
+                         login varchar(20) unique
 );
 
 DROP TABLE IF EXISTS messages CASCADE;
@@ -39,6 +39,6 @@ CREATE TABLE messages(
                          id SERIAL PRIMARY KEY,
                          message text,
                          movie_id Int REFERENCES movies(id),
-                         user_id Int REFERENCES users(id)
+                         user_id bigserial REFERENCES users(id)
 
 );

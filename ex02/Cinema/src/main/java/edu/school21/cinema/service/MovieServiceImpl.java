@@ -37,5 +37,4 @@ public class MovieServiceImpl implements MovieService{
         return movieRepository.getMovieIdByTitle(title);
     }
 
-
 }

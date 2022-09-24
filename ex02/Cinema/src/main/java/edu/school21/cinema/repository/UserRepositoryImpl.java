@@ -18,12 +18,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     @Transactional
-    public int save(User user) {
+    public Long save(User user) {
         entityManager.persist(user);
         return user.getId();
     }
 
     @Override
+    @Transactional
     public User findByLogin(String login) {
         try {
             return entityManager.createQuery("SELECT new User(u.id, u.login) FROM User u WHERE u.login = :login", User.class)

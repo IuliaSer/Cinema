@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,7 +25,6 @@ public class ChatController {
     private final MessageService messageService;
     private final MovieService movieService;
     private final UserRepository userRepository;
-
 
     @Autowired
     public ChatController(MessageService messageService, MovieService movieService, UserRepository userRepository) {
@@ -49,24 +47,17 @@ public class ChatController {
     public Message sendMessage(@Payload Message message) {
         User user = message.getUser();
         User checkUser = userRepository.findByLogin(user.getLogin());
+        long id;
         if (checkUser == null) {
-            user.setId(userRepository.save(user)); //exception!
+            id = userRepository.save(user);
+            user.setId(id);
         } else {
             user = checkUser;
         }
-        message.getUser().setId(user.getId());
+        message.setUser(user);
         messageService.save(message);
         return message;
     }
-
-//    @GetMapping("/films/{film-id}/messages")
-//    @ResponseBody
-//    public Map<String, Object> showMessages(@PathVariable("film-id") int filmId) {
-//        List<Message> messages = messageService.getLastTwentyMessages(filmId);
-//        Map<String, Object> result = new LinkedHashMap<>();
-//        result.put("messages", messages);
-//        return "messages";
-//    }
 
     @GetMapping("/films/{film-id}/messages")
     public String showMessages(@PathVariable("film-id") int filmId, Model model) {
@@ -76,13 +67,5 @@ public class ChatController {
         model.addAttribute("messages", messages);
         return "messages";
     }
-//    @MessageMapping("/chat.addUser")
-//    @SendTo("/topic/public")
-//    public Message addUser(@Payload Message message, SimpMessageHeaderAccessor headerAccessor) {
-//        headerAccessor.getSessionAttributes().put("username", message.getUser().getLogin());
-////        String clientIp = (String) headerAccessor.getSessionAttributes().get("ip");
-////        message.getUser().setId(authenticationService.authUser(message.getUser(), clientIp));
-//        return message;
-//    }
 
 }

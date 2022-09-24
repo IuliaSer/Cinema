@@ -9,4 +9,4 @@ public interface SessionRepository {
         List<Session> getAll();
         List<Session> getAllSessionsByMovieTitle(String movieTitle);
         Session getSessionBySessionId(int id);
-    }
+}

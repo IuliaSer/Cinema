@@ -3,7 +3,7 @@
 <head>
     <style>
         <#setting classic_compatible=true>
-<#--        <#include "css/chat.css">-->
+        <#include "css/chat.css">
     </style>
     <title>Chat</title>
     <meta charset="UTF-8">
