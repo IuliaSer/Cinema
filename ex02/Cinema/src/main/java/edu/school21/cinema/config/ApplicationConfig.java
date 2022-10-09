@@ -38,7 +38,6 @@ public class ApplicationConfig {
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
     }
-
     @Bean
     public String uploadPath() {
         return path;

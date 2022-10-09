@@ -31,11 +31,11 @@ public class MovieController {
         this.uploadPath = uploadPath;
     }
 
-    @GetMapping("/admin/panel/films")
+    @GetMapping("admin/panel/films")
     public String showHalls(Model model) {
         List<Movie> movies = movieService.getAll(model);
         model.addAttribute("movies", movies);
-        return "Movies";
+        return "movies";
     }
 
     @RequestMapping("/admin/panel/films/addFilm")
@@ -43,7 +43,7 @@ public class MovieController {
         Movie movie = new Movie();
         model.addAttribute("movie", movie);
 
-        return "AddFilm";
+        return "addFilm";
     }
 
     @GetMapping("/movies/{id}/image")

@@ -20,9 +20,7 @@ public class Movie {
     @Column(name="id")
     private int id;
 
-    @Column(name="title")
     private String title;
-
     private int year;
     private int age_restriction;
     private String description;

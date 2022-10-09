@@ -125,7 +125,7 @@
 
 <div id="chat-page">
 <div class="chat-container">
-    <ul id="messageArea">-->
+    <ul id="messageArea">
             <#list messages as message>
                 <li class="chat-message">
                     <span>${message.user.login}</span>
@@ -133,9 +133,10 @@
                 </li>
             </#list>
     </ul>
-
-    <input type="text" id="text" placeholder="Write a message..."/>
-    <button type="submit" id="sendMessage" onclick="sendMessage()">Send</button>
+    <div class="submit_input">
+        <input type="text" id="text" placeholder="Write a message..."/>
+        <button type="submit" id="sendMessage" onclick="sendMessage()">Send</button>
+    </div>
 </div>
 </div>
 

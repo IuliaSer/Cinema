@@ -18,9 +18,8 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     @Transactional
-    public Long save(User user) {
+    public void save(User user) {
         entityManager.persist(user);
-        return user.getId();
     }
 
     @Override

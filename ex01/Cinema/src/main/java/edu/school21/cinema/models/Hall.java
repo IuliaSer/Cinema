@@ -1,6 +1,8 @@
 package edu.school21.cinema.models;
 
 
+import jdk.nashorn.internal.objects.annotations.Getter;
+
 import javax.persistence.*;
 
 @Entity

@@ -47,10 +47,9 @@ public class ChatController {
     public Message sendMessage(@Payload Message message) {
         User user = message.getUser();
         User checkUser = userRepository.findByLogin(user.getLogin());
-        long id;
         if (checkUser == null) {
-            id = userRepository.save(user);
-            user.setId(id);
+            userRepository.save(user);
+            user = userRepository.findByLogin(user.getLogin());
         } else {
             user = checkUser;
         }

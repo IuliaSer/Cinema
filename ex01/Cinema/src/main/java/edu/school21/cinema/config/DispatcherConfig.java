@@ -15,7 +15,6 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"edu.school21.cinema"})
-// Scans the following packages for classes with @Controller annotations
 public class DispatcherConfig implements WebMvcConfigurer {
 
     @Override
