@@ -11,12 +11,12 @@ import lombok.Setter;
 public class MovieDto {
     private int id;
     private String name;
-    private String posterUrl;
+    private String imageUrl;
 
     public MovieDto(Movie movie) {
         this.id = movie.getId();
         this.name = movie.getTitle();
-//        this.posterUrl = movie.getImageUrl();
+        this.imageUrl = movie.getImageUrl();
     }
 
 }

@@ -21,9 +21,15 @@ public class Movie {
     private int id;
 
     private String title;
+
     private int year;
-    private int age_restriction;
+
+    @Column(name="age_restriction")
+    private int ageRestriction;
+
     private String description;
-    public String image_url;
+
+    @Column(name="image_url")
+    private String imageUrl;
 
 }

@@ -33,5 +33,16 @@ public class Session {
     private Date time;
 
     private int price;
+    public Session(int sessionId, Date time, Movie movie) {
+        this.sessionId = sessionId;
+        this.movie = movie;
+        this.time = time;
+    }
 
+    public Session(Movie movie, Hall hall, Date time, int price) {
+        this.movie = movie;
+        this.hall = hall;
+        this.time = time;
+        this.price = price;
+    }
 }

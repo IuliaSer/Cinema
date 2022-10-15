@@ -4,7 +4,7 @@
     <title>Admin </title>
 </head>
 <body>
-    <form method="post" action="http://localhost:8080/Cinema_war/admin/panel/sessions">
+    <form method="post" action="http://localhost:8080/admin/panel/sessions">
 
         <select name="movieId" id="Select movie">
             <option value="">--Please choose a movie--</option>

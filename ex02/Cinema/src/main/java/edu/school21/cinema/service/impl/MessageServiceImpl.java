@@ -1,6 +1,7 @@
-package edu.school21.cinema.service;
+package edu.school21.cinema.service.impl;
 
 import edu.school21.cinema.repository.MessageRepository;
+import edu.school21.cinema.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import edu.school21.cinema.model.Message;
@@ -8,7 +9,7 @@ import edu.school21.cinema.model.Message;
 import java.util.List;
 
 @Service
-public class MessageServiceImpl implements MessageService{
+public class MessageServiceImpl implements MessageService {
 
     private MessageRepository messageRepository;
 

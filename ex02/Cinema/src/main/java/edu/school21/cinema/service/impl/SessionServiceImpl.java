@@ -1,14 +1,15 @@
-package edu.school21.cinema.service;
+package edu.school21.cinema.service.impl;
 
 import edu.school21.cinema.model.Session;
 import edu.school21.cinema.repository.SessionRepository;
+import edu.school21.cinema.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class SessionServiceImpl implements SessionService{
+public class SessionServiceImpl implements SessionService {
 
     private SessionRepository sessionRepository;
 

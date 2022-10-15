@@ -1,6 +1,7 @@
-package edu.school21.cinema.repository;
+package edu.school21.cinema.repository.impl;
 
 import edu.school21.cinema.model.Session;
+import edu.school21.cinema.repository.SessionRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;

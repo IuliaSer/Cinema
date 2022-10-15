@@ -26,7 +26,7 @@ public class HallController {
     public String getAllHalls(Model model) {
         List<Hall> halls = hallService.getAllHalls(model);
         model.addAttribute("halls", halls);
-        return "Halls";
+        return "halls";
     }
 
     @PostMapping("/admin/panel/halls")
@@ -39,6 +39,6 @@ public class HallController {
     public String create(Model model) {
         Hall hall = new Hall();
         model.addAttribute("hall", hall);
-        return "CreateHall";
+        return "createHall";
     }
 }

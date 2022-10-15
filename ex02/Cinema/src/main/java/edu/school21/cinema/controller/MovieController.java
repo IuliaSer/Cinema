@@ -23,7 +23,7 @@ import java.util.UUID;
 public class MovieController {
 
     @Autowired
-    MovieService movieService;
+    private MovieService movieService;
 
     private final String uploadPath;
 
@@ -49,9 +49,12 @@ public class MovieController {
     @GetMapping("/movies/{id}/image")
     @ResponseBody
     public byte[] getContent(@PathVariable("id") String id) {
-        Movie movie = movieService.getMovieById(Integer.parseInt(id));
-//            return FileUtils.readFileToByteArray(new File(uploadPath + "/" + movie.getImageUrl()));
-        return null;
+        try {
+            Movie movie = movieService.getMovieById(Integer.parseInt(id));
+            return FileUtils.readFileToByteArray(new File(uploadPath + "/" + movie.getImageUrl()));
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     @PostMapping("/admin/panel/films/saveFilm")
@@ -65,7 +68,7 @@ public class MovieController {
 
             byte[] fileContent = FileUtils.readFileToByteArray(newFile);
             String encodedString = Base64.getEncoder().encodeToString(fileContent);
-//            movie.setImageUrl(encodedString);
+            movie.setImageUrl(encodedString);
 
             movieService.saveMovie(movie);
         }

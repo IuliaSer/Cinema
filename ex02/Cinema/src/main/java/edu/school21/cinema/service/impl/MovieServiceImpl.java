@@ -1,7 +1,8 @@
-package edu.school21.cinema.service;
+package edu.school21.cinema.service.impl;
 
 import edu.school21.cinema.model.Movie;
 import edu.school21.cinema.repository.MovieRepository;
+import edu.school21.cinema.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -9,7 +10,7 @@ import org.springframework.ui.Model;
 import java.util.List;
 
 @Service
-public class MovieServiceImpl implements MovieService{
+public class MovieServiceImpl implements MovieService {
     private MovieRepository movieRepository;
 
     @Autowired

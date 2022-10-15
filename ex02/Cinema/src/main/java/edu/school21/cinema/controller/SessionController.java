@@ -32,7 +32,7 @@ public class SessionController {
     public String getAllSessions(Model model) {
         List<Session> sessions = sessionService.getAll();
         model.addAttribute("sessions", sessions);
-        return "Sessions";
+        return "sessions";
     }
 
     @GetMapping("/admin/panel/sessions/createSession")
@@ -44,7 +44,7 @@ public class SessionController {
 
         List<Hall> halls = hallService.getAllHalls(model);
         model.addAttribute("halls", halls);
-        return "CreateSession";
+        return "createSession";
     }
 
     @PostMapping("/admin/panel/sessions")
@@ -54,14 +54,14 @@ public class SessionController {
         Hall hall = hallService.getHallById(hallId);
         String newDate = date.replace('T', ' ');
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        Session session = new Session(1, movie, hall, formatter.parse(newDate), price); //kakoy id dobavit
+        Session session = new Session(movie, hall, formatter.parse(newDate), price);
         sessionService.saveSession(session);
         return "redirect:/admin/panel/sessions";
     }
 
     @GetMapping("/sessions")
     public String sessions() {
-        return "SessionsSearch";
+        return "sessionsSearch";
     }
 
     @GetMapping(value = "/sessions/search", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -79,6 +79,6 @@ public class SessionController {
     public String showSession(@PathVariable("id") int id, Model model) {
         Session session = sessionService.getSessionBySessionId(id);
         model.addAttribute("session", session);
-        return "Session";
+        return "session";
     }
 }

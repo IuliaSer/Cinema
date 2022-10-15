@@ -31,14 +31,29 @@
                 success: function (data) {
                     for (var i = 0; i < data.length; i++) {
                         $("#ajaxResponse").append('<div>' +
-                            '<p><img src="data:image/png;base64,' + data[i].movie.imageUrl+'" width="150", height="200"></p>' +
-                            '<p>' + data[i].time + '</p>' +
-                            '<p><a href="sessions/' + data[i].sessionId + '">' + data[i].movie.title + '</a></p>' +
+                            '<p><img src="data:image/png;base64,' + data[i].movieDto.imageUrl+'" width="150", height="200"></p>' +
+                            '<p>' + data[i].dateTime + '</p>' +
+                            '<p><a href="sessions/' + data[i].sessionId + '">' + data[i].movieDto.name + '</a></p>' +
                             '</div>')
 
                     }
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+            //     $.ajax({
+            //         type: "GET",
+            //         url: url,
+            //         contentType: "application/json",
+            //         dataType: "json",
+            //         data: {movieTitle: movieTitle},
+            //         success: function (data) {
+            //             $.each(data.sessions, function (key, value) {
+            //                 $("#result").append('<div>' +
+            //                     '<p><img src="data:image/png;base64,'+value.movie.posterUrl+'" width="150", height="200"></p>' +
+            //                     '<p>'+value.time+'</p>' +
+            //                     '<p><a href="/sessions/'+value.id+'">'+value.movie.name+'</a></p>' +
+            //                     '</div>')
+            //             });
+            //         },
+                error: function (jqXHR, textStatus) {
                     console.log("Something really bad happened " + textStatus);
                     $("#ajaxResponse").html(jqXHR.responseText);
                 },

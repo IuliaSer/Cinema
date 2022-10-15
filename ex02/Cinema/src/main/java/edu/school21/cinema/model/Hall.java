@@ -22,4 +22,5 @@ public class Hall {
 
     @Column(name="amount_of_seats")
     private int amountOfSeats;
+
 }

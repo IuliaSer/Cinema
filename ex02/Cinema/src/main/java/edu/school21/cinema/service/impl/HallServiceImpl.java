@@ -1,7 +1,8 @@
-package edu.school21.cinema.service;
+package edu.school21.cinema.service.impl;
 
 import edu.school21.cinema.model.Hall;
 import edu.school21.cinema.repository.HallRepository;
+import edu.school21.cinema.service.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class HallServiceImpl implements HallService{
+public class HallServiceImpl implements HallService {
 
     private HallRepository hallRepository;
 

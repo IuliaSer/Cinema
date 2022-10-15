@@ -10,8 +10,8 @@ DROP TABLE IF EXISTS movies CASCADE;
 CREATE TABLE movies(
                       id SERIAL PRIMARY KEY,
                       title varchar(30) not null,
-                      year INT not null,
-                      age_restriction INT not null ,
+                      year INT not null ,
+                      age_restriction INT ,
                       description text,
                       image_url text
 );
